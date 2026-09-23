@@ -75,6 +75,22 @@ khi nâng version — xem chính sách tương thích ngược ở
   lề/độ cao chữ thật -- cần xác minh trên thiết bị/emulator Android thật
   trước khi tin tưởng hoàn toàn bản raster Android. [CODE-006](docs/wbs.md)
 
+- **REQ-004** — USB transport (KMP, `androidMain`): `UsbPrinterTransport`
+  (dò máy in theo interface class 7, ghi qua bulk OUT endpoint),
+  `UsbPermissionGate` (xin quyền USB, đọc lại `hasPermission()` sau
+  broadcast thay vì tin `EXTRA_PERMISSION_GRANTED` -- tránh lớp lỗi
+  `FLAG_IMMUTABLE` đã gặp ở bản legacy), `ChunkedWriter` (`commonMain`,
+  thuần Kotlin -- chia gói ghi và phát hiện `transferred <= 0`, tránh
+  vòng lặp vô hạn đã thấy ở code cũ). Định danh máy in USB dùng
+  vendorId/productId (không dùng `deviceName`, vốn đổi mỗi lần cắm lại).
+  Test qua Robolectric **thật, không stub** (khác gap của REQ-002 --
+  `UsbManager`/`UsbDevice` là shadow dữ liệu thuần, không qua Skia native).
+  Còn thiếu: test `open()`/`write()` ghép nối đầy đủ (cần dựng `UsbDevice`
+  có interface/endpoint thật gắn kèm, phức tạp hơn dựng rời từng phần) --
+  đã test riêng chọn interface/endpoint, chunked write, permission gate;
+  phần ghép nối cần xác minh thêm trên thiết bị thật khi tích hợp app.
+  [CODE-007](docs/wbs.md)
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`

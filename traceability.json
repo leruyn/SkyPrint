@@ -104,6 +104,26 @@
       "type": "CODE",
       "updated_at": "2026-09-23T06:47:52Z"
     },
+    "CODE-007": {
+      "code_ref": "kmp/skyprint-core/src/androidMain/kotlin/com/dcorp/skyprint/core/usb/UsbPrinterTransport.kt",
+      "created_at": "2026-09-23T07:04:18Z",
+      "depends_on": [
+        "DESIGN-004",
+        "DESIGN-008"
+      ],
+      "module": "kmp",
+      "note": "Cùng đợt: transport/ChunkedWriter.kt (commonMain, thuần Kotlin -- chia gói + phát hiện transferred<=0, sửa đúng bug vòng lặp vô hạn đã review ở bản legacy đầu phiên), usb/UsbPermissionGate.kt (xin quyền USB, đọc lại hasPermission() sau broadcast thay vì tin EXTRA_PERMISSION_GRANTED -- sửa đúng bug FLAG_IMMUTABLE đã review). Test USB qua Robolectric CHẠY THẬT VÀ ĐÚNG (khác REQ-002's rasterizer -- UsbManager/UsbDevice/UsbInterface/UsbEndpoint là shadow dữ liệu thuần, không qua pipeline Skia native nên không bị chặn). UsbInterface/UsbEndpoint/UsbDevice dựng qua ReflectionHelpers vì constructor thật bị ẩn ở SDK stub lúc compile. CHƯA TEST: open()/write() end-to-end với UsbDevice có interface/endpoint thật gắn kèm (cần dựng qua constructor private đầy đủ của UsbDevice, nhiều tham số ẩn phức tạp hơn -- đã test riêng từng phần: chọn interface/endpoint (pick*), chunked write, permission gate; phần ghép nối open() thật cần xác minh thêm trên thiết bị Android thật khi tích hợp app, việc riêng theo dõi tiếp).",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: UsbPrinterTransport + UsbPermissionGate + ChunkedWriter (KMP)",
+      "traces_to": [
+        "TEST-UNIT-009",
+        "TEST-UNIT-010",
+        "TEST-UNIT-011"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-23T07:04:38Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -727,8 +747,44 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-23T06:38:14Z"
+    },
+    "TEST-UNIT-009": {
+      "created_at": "2026-09-23T07:04:18Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.transport.ChunkedWriterTest",
+      "title": "Unit: ChunkedWriter (chia gói, phát hiện lỗi ghi) (REQ-004)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:04:18Z"
+    },
+    "TEST-UNIT-010": {
+      "created_at": "2026-09-23T07:04:18Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.usb.UsbPrinterTransportTest",
+      "title": "Unit: UsbPrinterTransport chọn interface/endpoint (REQ-004)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:04:18Z"
+    },
+    "TEST-UNIT-011": {
+      "created_at": "2026-09-23T07:04:18Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.usb.UsbPermissionGateTest",
+      "title": "Unit: UsbPermissionGate qua Robolectric thật (REQ-004)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:04:18Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T06:47:52Z"
+  "updated_at": "2026-09-23T07:04:38Z"
 }
