@@ -85,11 +85,11 @@ khi nâng version — xem chính sách tương thích ngược ở
   vendorId/productId (không dùng `deviceName`, vốn đổi mỗi lần cắm lại).
   Test qua Robolectric **thật, không stub** (khác gap của REQ-002 --
   `UsbManager`/`UsbDevice` là shadow dữ liệu thuần, không qua Skia native).
-  Còn thiếu: test `open()`/`write()` ghép nối đầy đủ (cần dựng `UsbDevice`
-  có interface/endpoint thật gắn kèm, phức tạp hơn dựng rời từng phần) --
-  đã test riêng chọn interface/endpoint, chunked write, permission gate;
-  phần ghép nối cần xác minh thêm trên thiết bị thật khi tích hợp app.
-  [CODE-007](docs/wbs.md)
+  **Đã xác minh trên thiết bị thật 2026-09-23** (ACE3 + ICOD_Thermal_Printer
+  qua USB, app throwaway `:printtest` dựng riêng để verify rồi gỡ khỏi
+  repo và máy): 4/4 lần in liên tiếp `open()`/`write()`/`close()` đều
+  thành công, không crash, giấy in ra đúng nội dung -- đóng nốt phần
+  "chưa test ghép nối đầy đủ" còn treo từ bản trước. [CODE-007](docs/wbs.md)
 
 ### Changed
 

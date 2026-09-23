@@ -112,7 +112,7 @@
         "DESIGN-008"
       ],
       "module": "kmp",
-      "note": "Cùng đợt: transport/ChunkedWriter.kt (commonMain, thuần Kotlin -- chia gói + phát hiện transferred<=0, sửa đúng bug vòng lặp vô hạn đã review ở bản legacy đầu phiên), usb/UsbPermissionGate.kt (xin quyền USB, đọc lại hasPermission() sau broadcast thay vì tin EXTRA_PERMISSION_GRANTED -- sửa đúng bug FLAG_IMMUTABLE đã review). Test USB qua Robolectric CHẠY THẬT VÀ ĐÚNG (khác REQ-002's rasterizer -- UsbManager/UsbDevice/UsbInterface/UsbEndpoint là shadow dữ liệu thuần, không qua pipeline Skia native nên không bị chặn). UsbInterface/UsbEndpoint/UsbDevice dựng qua ReflectionHelpers vì constructor thật bị ẩn ở SDK stub lúc compile. CHƯA TEST: open()/write() end-to-end với UsbDevice có interface/endpoint thật gắn kèm (cần dựng qua constructor private đầy đủ của UsbDevice, nhiều tham số ẩn phức tạp hơn -- đã test riêng từng phần: chọn interface/endpoint (pick*), chunked write, permission gate; phần ghép nối open() thật cần xác minh thêm trên thiết bị Android thật khi tích hợp app, việc riêng theo dõi tiếp).",
+      "note": "Cùng đợt: transport/ChunkedWriter.kt, usb/UsbPermissionGate.kt (sửa bug FLAG_IMMUTABLE), usb/UsbPrinterTransport.kt (định danh theo vendorId/productId, không dùng deviceName). Test Robolectric CHẠY THẬT (không stub như REQ-002). ĐÃ XÁC MINH TRÊN THIẾT BỊ THẬT 2026-09-23: cài app :printtest (throwaway, đã gỡ khỏi cả repo lẫn máy) lên ACE3 (rk3566_r) + máy in ICOD_Thermal_Printer (vendorId=26728, productId=512) cắm sẵn qua USB. 4 lần bấm in liên tiếp: open()/write() 243 byte/close() đều OK, không crash, người dùng xác nhận giấy in ra đúng nội dung, sạch đẹp. Xin quyền USB tự động qua device_filter.xml (không cần hộp thoại thủ công). Gap 'chưa test open()/write() ghép nối' của lần trước ĐÃ ĐÓNG bằng verify thiết bị thật này.",
       "owner": "",
       "status": "done",
       "title": "CODE: UsbPrinterTransport + UsbPermissionGate + ChunkedWriter (KMP)",
@@ -122,7 +122,7 @@
         "TEST-UNIT-011"
       ],
       "type": "CODE",
-      "updated_at": "2026-09-23T07:04:38Z"
+      "updated_at": "2026-09-23T07:17:41Z"
     },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
@@ -579,12 +579,13 @@
       "created_at": "2026-09-23T03:08:58Z",
       "depends_on": [],
       "module": "shared",
+      "note": "Verify thủ công trên thiết bị thật 2026-09-23 (ACE3 + ICOD_Thermal_Printer, USB): 4/4 lần in thành công, giấy ra đúng nội dung sạch đẹp -- xem chi tiết ở CODE-007's note. Không set status=pass ở đây vì đây là verify thủ công, không qua sync_test_results.py/JUnit XML (quy tắc traceability: pass/fail TEST-* chỉ do script đó set).",
       "owner": "",
       "status": "pending",
       "title": "UAT: USB transport Android",
       "traces_to": [],
       "type": "TEST-UAT",
-      "updated_at": "2026-09-23T03:09:12Z"
+      "updated_at": "2026-09-23T07:17:41Z"
     },
     "TEST-UAT-005": {
       "created_at": "2026-09-23T03:08:58Z",
@@ -786,5 +787,5 @@
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T07:04:38Z"
+  "updated_at": "2026-09-23T07:17:41Z"
 }
