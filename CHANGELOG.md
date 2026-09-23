@@ -5,9 +5,16 @@
 khi nâng version — xem chính sách tương thích ngược ở
 [docs/architecture.md](docs/architecture.md#phiên-bản--publish).
 
-## [Unreleased]
+## [0.1.0] - 2026-09-23
 
 ### Added
+
+- **REQ-011** — Đồng bộ skyprint lên Git + publish SDK (GitLab Maven Package Registry):
+  cấu hình `publishing.repositories` trỏ tới GitLab Package Registry của project `116`
+  (`https://gitlab.skyxtech.com.vn/api/v4/projects/116/packages/maven`), hỗ trợ `CI_JOB_TOKEN`,
+  `GITLAB_DEPLOY_TOKEN`, và Personal Access Token. Bổ sung `.gitlab-ci.yml` cho CI/CD pipeline
+  tự động test và publish khi push tag. Chuyển `version` từ `0.1.0-local` sang `0.1.0`.
+
 
 - **REQ-001** — Document model (`ReceiptDocument`, `Element`, `TextStyle`,
   `Column`, `MonoBitmap`) và `EscPosEncoder` chế độ `TextMode.ASCII` (KMP,

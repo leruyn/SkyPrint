@@ -4,3 +4,5 @@ kmp/*/build/
 kmp/.kotlin/
 .DS_Store
 kmp/local.properties
+__pycache__/
+*.pyc
