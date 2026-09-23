@@ -1,0 +1,38 @@
+# {ID} — {Title} (DESIGN)
+
+> Owns HOW; `depends_on` the paired REQ, which owns WHAT/WHY. `spec_ref`
+> on the DESIGN-* node points here.
+
+## Interfaces (keep this section narrow — SOLID / Interface Segregation)
+
+List the public surface this design exposes — function signatures, API
+endpoints, or class boundaries an implementer needs to know about. Keep
+each interface single-purpose (Single Responsibility): a narrower
+interface here means the agent implementing the matching `CODE-*` node
+needs less surrounding context loaded to work on it correctly, and is
+less likely to touch code outside this DESIGN's boundary by mistake.
+
+## Components / classes
+
+What pieces make this up, and how do they relate to each other?
+
+## Data model
+
+Any new or changed data structures, schemas, or persisted fields.
+
+## Dependencies
+
+Other `DESIGN-*` nodes or external libraries this depends on.
+
+## Risks / open questions
+
+Anything unresolved that could change the design once implementation
+starts.
+
+---
+<!--
+Status convention: a DESIGN scaffolded by /tn-new-req starts "draft".
+Do not write CODE-* against this design until TEST-UNIT-* exists with a
+real, failing test — see WORKFLOW.md "New requirement — required order"
+for the full TDD sequence this design feeds into.
+-->

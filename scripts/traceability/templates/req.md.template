@@ -1,0 +1,60 @@
+# {ID} — {Title} (REQ)
+
+> Owns WHAT and WHY, not HOW. Written as a use case (actor + system), not
+> free prose — this is the format `/tn-new-req` and `confirm_import.py`
+> both scaffold into, so every REQ in the graph reads the same way and an
+> agent can load it directly as a spec without re-interpreting prose.
+
+## Actor(s)
+
+Who initiates this? Name a role, not a person — e.g. "Cashier",
+"Scheduled job", "Support agent". If more than one actor, list each with
+what they're responsible for.
+
+## Goal
+
+One sentence: what does the actor want to accomplish, in their own
+terms — not "implement X module".
+
+## Preconditions
+
+What must already be true about the system before this use case can
+start?
+
+## Main flow
+
+Numbered actor/system exchange — this is the backbone `TEST-UAT-*`
+verifies against:
+
+1. Actor: ...
+   System: ...
+2. Actor: ...
+   System: ...
+
+## Alternate / exception flows
+
+- If <condition during step N>, then <system behavior> instead of
+  continuing the main flow.
+
+## Postconditions
+
+What must be true when this use case succeeds?
+
+## Out of scope
+
+What this REQ explicitly does NOT cover — say it here instead of letting
+scope creep into a sibling REQ or into the paired DESIGN.
+
+## Acceptance criteria (feeds TEST-UAT-*)
+
+- [ ] ...
+- [ ] ...
+
+---
+<!--
+Status convention: a REQ scaffolded by /tn-new-req starts "draft" and
+moves through the SKILL.md checklist toward "done". A REQ scaffolded by
+confirm_import.py during an import instead starts every section above
+marked "AUTO-IMPORTED — needs review" — replace those sections with the
+real use case before treating the REQ as more than a placeholder.
+-->

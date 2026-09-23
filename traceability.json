@@ -1,0 +1,563 @@
+{
+  "created_at": "2026-09-23T03:05:43Z",
+  "nodes": {
+    "CODE-001": {
+      "code_ref": "kmp/skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/encode/EscPosEncoder.kt",
+      "created_at": "2026-09-23T04:11:21Z",
+      "depends_on": [
+        "DESIGN-001"
+      ],
+      "module": "kmp",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: EscPosEncoder + document model (KMP)",
+      "traces_to": [
+        "TEST-UNIT-001"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-23T04:12:15Z"
+    },
+    "DESIGN-001": {
+      "created_at": "2026-09-23T03:09:23Z",
+      "depends_on": [
+        "REQ-001"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-001/design.md",
+      "status": "pending",
+      "title": "DESIGN: Document model + encoder",
+      "traces_to": [
+        "TEST-SIT-001"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:09:23Z"
+    },
+    "DESIGN-002": {
+      "created_at": "2026-09-23T03:09:23Z",
+      "depends_on": [
+        "DESIGN-001",
+        "REQ-002"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-002/design.md",
+      "status": "pending",
+      "title": "DESIGN: Raster text + ASCII fallback",
+      "traces_to": [
+        "TEST-SIT-002"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:09:23Z"
+    },
+    "DESIGN-003": {
+      "created_at": "2026-09-23T03:09:23Z",
+      "depends_on": [
+        "REQ-003"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-003/design.md",
+      "status": "pending",
+      "title": "DESIGN: Discovery đa transport",
+      "traces_to": [
+        "TEST-SIT-003"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:09:23Z"
+    },
+    "DESIGN-004": {
+      "created_at": "2026-09-23T03:09:23Z",
+      "depends_on": [
+        "DESIGN-008",
+        "REQ-004"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-004/design.md",
+      "status": "pending",
+      "title": "DESIGN: USB transport Android",
+      "traces_to": [
+        "TEST-SIT-004"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:09:23Z"
+    },
+    "DESIGN-005": {
+      "created_at": "2026-09-23T03:09:23Z",
+      "depends_on": [
+        "DESIGN-008",
+        "REQ-005"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-005/design.md",
+      "status": "pending",
+      "title": "DESIGN: LAN transport",
+      "traces_to": [
+        "TEST-SIT-005"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:09:23Z"
+    },
+    "DESIGN-006": {
+      "created_at": "2026-09-23T03:09:23Z",
+      "depends_on": [
+        "DESIGN-008",
+        "REQ-006"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-006/design.md",
+      "status": "pending",
+      "title": "DESIGN: BT Classic transport",
+      "traces_to": [
+        "TEST-SIT-006"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:09:23Z"
+    },
+    "DESIGN-007": {
+      "created_at": "2026-09-23T03:09:23Z",
+      "depends_on": [
+        "DESIGN-008",
+        "REQ-007"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-007/design.md",
+      "status": "pending",
+      "title": "DESIGN: BLE transport",
+      "traces_to": [
+        "TEST-SIT-007"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:09:23Z"
+    },
+    "DESIGN-008": {
+      "created_at": "2026-09-23T03:09:23Z",
+      "depends_on": [
+        "REQ-008"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-008/design.md",
+      "status": "pending",
+      "title": "DESIGN: Contracts, queue, error codes",
+      "traces_to": [
+        "TEST-SIT-008"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:09:23Z"
+    },
+    "DESIGN-009": {
+      "created_at": "2026-09-23T03:59:25Z",
+      "depends_on": [
+        "DESIGN-001",
+        "DESIGN-010",
+        "REQ-009"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-009/design.md",
+      "status": "pending",
+      "title": "DESIGN: Template engine",
+      "traces_to": [
+        "TEST-SIT-009"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:59:31Z"
+    },
+    "DESIGN-010": {
+      "created_at": "2026-09-23T03:59:25Z",
+      "depends_on": [
+        "DESIGN-001",
+        "REQ-010"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-010/design.md",
+      "status": "pending",
+      "title": "DESIGN: Lệnh mở rộng + capabilities",
+      "traces_to": [
+        "TEST-SIT-010"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T03:59:31Z"
+    },
+    "REQ-001": {
+      "created_at": "2026-09-23T03:05:55Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-001/req.md",
+      "status": "pending",
+      "title": "Dựng hoá đơn ESC/POS (document model + encoder)",
+      "traces_to": [
+        "TEST-UAT-001"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "REQ-002": {
+      "created_at": "2026-09-23T03:06:09Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-002/req.md",
+      "status": "pending",
+      "title": "In tiếng Việt: raster text + fallback ASCII",
+      "traces_to": [
+        "TEST-UAT-002"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "REQ-003": {
+      "created_at": "2026-09-23T03:06:09Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-003/req.md",
+      "status": "pending",
+      "title": "Tìm máy in (discovery) đa transport",
+      "traces_to": [
+        "TEST-UAT-003"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "REQ-004": {
+      "created_at": "2026-09-23T03:06:09Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-004/req.md",
+      "status": "pending",
+      "title": "Transport USB (Android)",
+      "traces_to": [
+        "TEST-UAT-004"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "REQ-005": {
+      "created_at": "2026-09-23T03:06:09Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-005/req.md",
+      "status": "pending",
+      "title": "Transport LAN TCP 9100 (Android + iOS)",
+      "traces_to": [
+        "TEST-UAT-005"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "REQ-006": {
+      "created_at": "2026-09-23T03:06:09Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-006/req.md",
+      "status": "pending",
+      "title": "Transport Bluetooth Classic SPP (Android)",
+      "traces_to": [
+        "TEST-UAT-006"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "REQ-007": {
+      "created_at": "2026-09-23T03:06:09Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-007/req.md",
+      "status": "pending",
+      "title": "Transport BLE (Android + iOS)",
+      "traces_to": [
+        "TEST-UAT-007"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "REQ-008": {
+      "created_at": "2026-09-23T03:06:09Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-008/req.md",
+      "status": "pending",
+      "title": "Hàng đợi lệnh in, timeout, retry, mã lỗi thống nhất",
+      "traces_to": [
+        "TEST-UAT-008"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "REQ-009": {
+      "created_at": "2026-09-23T03:59:25Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-009/req.md",
+      "status": "pending",
+      "title": "Mẫu in cấu hình được (template engine có placeholder)",
+      "traces_to": [
+        "TEST-UAT-009"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:59:31Z"
+    },
+    "REQ-010": {
+      "created_at": "2026-09-23T03:59:25Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-010/req.md",
+      "status": "pending",
+      "title": "Lệnh ESC/POS cho nghiệp vụ POS + năng lực máy in",
+      "traces_to": [
+        "TEST-UAT-010"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T03:59:31Z"
+    },
+    "TEST-SIT-001": {
+      "created_at": "2026-09-23T03:08:57Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: Document model + encoder",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-SIT-002": {
+      "created_at": "2026-09-23T03:08:57Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: Raster text + ASCII fallback",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-SIT-003": {
+      "created_at": "2026-09-23T03:08:57Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: Discovery đa transport",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-SIT-004": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: USB transport Android",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-SIT-005": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: LAN transport",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-SIT-006": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: BT Classic transport",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "TEST-SIT-007": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: BLE transport",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "TEST-SIT-008": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: Contracts, queue, error codes",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "TEST-SIT-009": {
+      "created_at": "2026-09-23T03:59:25Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: Template engine",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:59:25Z"
+    },
+    "TEST-SIT-010": {
+      "created_at": "2026-09-23T03:59:25Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "SIT: Lệnh mở rộng + capabilities",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T03:59:25Z"
+    },
+    "TEST-UAT-001": {
+      "created_at": "2026-09-23T03:08:57Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: Document model + encoder",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-UAT-002": {
+      "created_at": "2026-09-23T03:08:57Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: Raster text + ASCII fallback",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-UAT-003": {
+      "created_at": "2026-09-23T03:08:57Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: Discovery đa transport",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-UAT-004": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: USB transport Android",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-UAT-005": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: LAN transport",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:09:12Z"
+    },
+    "TEST-UAT-006": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: BT Classic transport",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "TEST-UAT-007": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: BLE transport",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "TEST-UAT-008": {
+      "created_at": "2026-09-23T03:08:58Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: Contracts, queue, error codes",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:09:13Z"
+    },
+    "TEST-UAT-009": {
+      "created_at": "2026-09-23T03:59:25Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: Template engine",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:59:25Z"
+    },
+    "TEST-UAT-010": {
+      "created_at": "2026-09-23T03:59:25Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "UAT: Lệnh mở rộng + capabilities",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T03:59:25Z"
+    },
+    "TEST-UNIT-001": {
+      "created_at": "2026-09-23T04:11:21Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.encode.EscPosEncoderTest",
+      "title": "Unit: EscPosEncoder (REQ-001)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T04:11:21Z"
+    }
+  },
+  "project": "skyprint",
+  "updated_at": "2026-09-23T04:12:15Z"
+}

@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# post-commit — combined traceability hook.
+#
+# Installed via `git config core.hooksPath scripts/traceability/hooks`
+# (never copied into .git/hooks/ directly — some environments block
+# writing there). Does two things, both non-blocking: a failure here
+# never fails the commit that already happened.
+#
+#   1. Scans the commit message for [ID:status] tags, e.g.
+#      "Fix login bug [CODE-012:done]", and updates that node's status.
+#   2. If CodeGraphContext (`cgc`) is available, refreshes the code graph
+#      index and runs sync_codegraph.py --no-index to report drift.
+#      Silently skipped if `cgc` isn't installed or Python < 3.12 — see
+#      sync_codegraph.py for that fallback logic.
+set -uo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+[ -z "$REPO_ROOT" ] && exit 0
+SCRIPTS_DIR="$REPO_ROOT/scripts/traceability"
+[ -d "$SCRIPTS_DIR" ] || exit 0
+
+MSG="$(git log -1 --pretty=%B 2>/dev/null || true)"
+
+# [ID:status] e.g. [REQ-003:done] [CODE-012:in_progress]
+echo "$MSG" | grep -oE '\[(REQ|DESIGN|CODE|TEST-UAT|TEST-SIT|TEST-UNIT)-[0-9]+:[a-z_]+\]' | while read -r tag; do
+  id="${tag#[}"; id="${id%]}"
+  node_id="${id%%:*}"
+  status="${id##*:}"
+  python3 "$SCRIPTS_DIR/update_node.py" --file "$REPO_ROOT/traceability.json" --id "$node_id" --status "$status" \
+    || echo "post-commit: could not update $node_id (non-fatal)"
+done
+
+if command -v cgc >/dev/null 2>&1; then
+  (cd "$REPO_ROOT" && cgc update >/dev/null 2>&1) || true
+fi
+python3 "$SCRIPTS_DIR/sync_codegraph.py" --file "$REPO_ROOT/traceability.json" --no-index >/dev/null 2>&1 || true
+
+exit 0
