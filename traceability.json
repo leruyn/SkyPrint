@@ -373,13 +373,13 @@
       "module": "kmp",
       "owner": "",
       "spec_ref": "docs/features/REQ-011/design.md",
-      "status": "pending",
+      "status": "done",
       "title": "DESIGN: Publish workflow + migration 2 consumer sang GitLab Package Registry",
       "traces_to": [
         "TEST-SIT-011"
       ],
       "type": "DESIGN",
-      "updated_at": "2026-09-23T09:36:08Z"
+      "updated_at": "2026-09-23T10:23:24Z"
     },
     "REQ-001": {
       "created_at": "2026-09-23T03:05:55Z",
@@ -527,13 +527,13 @@
       "module": "kmp",
       "owner": "",
       "spec_ref": "docs/features/REQ-011/req.md",
-      "status": "pending",
+      "status": "done",
       "title": "Đồng bộ skyprint lên Git + publish SDK (Maven Package Registry)",
       "traces_to": [
         "TEST-UAT-011"
       ],
       "type": "REQ",
-      "updated_at": "2026-09-23T09:36:07Z"
+      "updated_at": "2026-09-23T10:23:24Z"
     },
     "TEST-SIT-001": {
       "created_at": "2026-09-23T03:08:57Z",
@@ -650,11 +650,11 @@
       "depends_on": [],
       "module": "kmp",
       "owner": "",
-      "status": "pending",
+      "status": "pass",
       "title": "TEST-SIT-011: publish thật lên GitLab Package Registry, 2 consumer resolve được",
       "traces_to": [],
       "type": "TEST-SIT",
-      "updated_at": "2026-09-23T09:36:08Z"
+      "updated_at": "2026-09-23T10:23:24Z"
     },
     "TEST-UAT-001": {
       "created_at": "2026-09-23T03:08:57Z",
@@ -772,11 +772,11 @@
       "depends_on": [],
       "module": "kmp",
       "owner": "",
-      "status": "pending",
+      "status": "pass",
       "title": "TEST-UAT-011: clone sạch + publish + build lại từ máy khác chạy được",
       "traces_to": [],
       "type": "TEST-UAT",
-      "updated_at": "2026-09-23T09:36:07Z"
+      "updated_at": "2026-09-23T10:23:24Z"
     },
     "TEST-UNIT-001": {
       "created_at": "2026-09-23T04:11:21Z",
@@ -984,5 +984,5 @@
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T09:36:08Z"
+  "updated_at": "2026-09-23T10:23:24Z"
 }
