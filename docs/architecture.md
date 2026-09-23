@@ -90,6 +90,19 @@ Quyết định chính:
 
 ## Phiên bản & publish
 
-- KMP: Maven (`com.dcorp.skyprint:*`), trước mắt `mavenLocal`/GitLab Package Registry; Maven Central khi ổn định.
-- Flutter: git dependency (tag) hoặc pub server nội bộ; pub.dev khi ổn định.
+**Mục tiêu: SDK dùng nội bộ nhiều dự án Dcorp** (chốt 2026-09-23) — không phải
+lib riêng của SkytabOffline/SkyPos, cũng chưa phải SDK công khai (không cần
+license công cộng, issue tracker mở, chứng nhận đa hãng ngay). Scope nghiệp
+vụ (F&B POS) giữ nguyên cho tới khi có dự án cụ thể khác cần thêm (chốt: làm
+tổng quát trước, chưa map dự án nào ngoài SkytabOffline + SkyPos-Flutter).
+
+- KMP: Maven (`com.dcorp.skyprint:*`), trước mắt `mavenLocal`/GitLab Package Registry nội bộ; Maven Central chỉ nếu sau này mở public.
+- Flutter: git dependency (tag) hoặc pub server nội bộ; pub.dev chỉ nếu mở public.
 - Hai bản cùng số version (SemVer) — golden fixtures là hợp đồng giữa chúng.
+- **SemVer kỷ luật dù chỉ dùng nội bộ**: đổi API không tương thích ngược →
+  tăng major, không được "tiện tay sửa luôn" khi nhiều dự án đã phụ thuộc.
+  Deprecate (đánh dấu, giữ hoạt động) ít nhất 1 minor version trước khi xoá.
+- Mỗi thay đổi có ý nghĩa ghi vào [CHANGELOG.md](../CHANGELOG.md) (Keep a
+  Changelog) — dự án khác nâng version đọc đây trước khi đọc diff.
+- CI publish tự động mỗi lần merge vào `main` — **chưa dựng** (repo chưa có
+  remote git/host CI, xem lúc quyết định host).
