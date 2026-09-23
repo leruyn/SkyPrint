@@ -1,12 +1,17 @@
 {
-  "last_updated": "2026-09-23T04:46:32.453Z",
+  "last_updated": "2026-09-23T06:13:25.365Z",
   "cwd": "/Users/leruyn/Project/Dcorp/skyprint",
   "branch": "main",
   "git_status": null,
-  "recent_commits": "db8ef1a feat(kmp): REQ-009 template engine (skyprint-template)\n93aed9a feat(kmp): REQ-010 lệnh ESC/POS nghiệp vụ POS + PrinterCapabilities\n3d992bf docs: chốt hướng SDK nội bộ dùng nhiều dự án Dcorp\n85e954e feat(kmp): REQ-001 document model + ESC/POS encoder",
+  "recent_commits": "3687958 feat(kmp): REQ-008 PrintQueue + PrinterTransport contract\ndb8ef1a feat(kmp): REQ-009 template engine (skyprint-template)\n93aed9a feat(kmp): REQ-010 lệnh ESC/POS nghiệp vụ POS + PrinterCapabilities\n3d992bf docs: chốt hướng SDK nội bộ dùng nhiều dự án Dcorp\n85e954e feat(kmp): REQ-001 document model + ESC/POS encoder",
   "session_id": "ad1e2478-cdda-42ef-bc30-5a3a9dec5d66",
   "transcript_path": "/Users/leruyn/.claude/projects/-Users-leruyn-Project-Dcorp/ad1e2478-cdda-42ef-bc30-5a3a9dec5d66.jsonl",
   "history": [
+    {
+      "at": "2026-09-23T06:13:25.365Z",
+      "branch": "main",
+      "git_status": ""
+    },
     {
       "at": "2026-09-23T04:46:32.454Z",
       "branch": "main",
@@ -26,11 +31,6 @@
       "at": "2026-09-23T04:22:19.723Z",
       "branch": "main",
       "git_status": "M .claude/session-sync.json"
-    },
-    {
-      "at": "2026-09-23T04:12:45.418Z",
-      "branch": "main",
-      "git_status": ""
     }
   ]
 }

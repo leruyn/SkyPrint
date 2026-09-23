@@ -69,6 +69,24 @@
       "type": "CODE",
       "updated_at": "2026-09-23T06:12:51Z"
     },
+    "CODE-005": {
+      "code_ref": "kmp/skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/raster/RasterPacker.kt",
+      "created_at": "2026-09-23T06:18:40Z",
+      "depends_on": [
+        "DESIGN-002"
+      ],
+      "module": "kmp",
+      "note": "Cùng đợt: raster/Dither.kt, raster/TextRasterizer.kt (RasterSpan/RasterLine/RasterBlock/TextRasterizer -- contract, chưa có cài đặt thật), EscPosEncoder sửa: gom Text/Row/Divider liên tiếp thành 1 RasterBlock, Element.Image dùng RasterPacker bất kể mode. CHƯA CÀI: AndroidTextRasterizer (Canvas/StaticLayout), iOS CoreText, Flutter dart:ui -- cần toolchain Android/iOS + Robolectric hoặc thiết bị thật để test, việc riêng theo dõi tiếp.",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: RasterPacker/Dither/TextRasterizer contract + EscPosEncoder RASTER mode (KMP)",
+      "traces_to": [
+        "TEST-UNIT-006",
+        "TEST-UNIT-007"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-23T06:18:55Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -656,8 +674,32 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-23T06:12:51Z"
+    },
+    "TEST-UNIT-006": {
+      "created_at": "2026-09-23T06:18:40Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.raster.RasterPackerTest",
+      "title": "Unit: RasterPacker + Dither + encoder RASTER wiring (REQ-002)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T06:18:40Z"
+    },
+    "TEST-UNIT-007": {
+      "created_at": "2026-09-23T06:18:55Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.encode.RasterEncoderTest",
+      "title": "Unit: EscPosEncoder RASTER wiring + Element.Image (REQ-002)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T06:18:55Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T06:12:51Z"
+  "updated_at": "2026-09-23T06:18:55Z"
 }

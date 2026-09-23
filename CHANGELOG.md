@@ -44,6 +44,19 @@ khi nâng version — xem chính sách tương thích ngược ở
   `TransportKind` (mượn trước từ DESIGN-003 -- discovery thật chưa cài).
   [CODE-004](docs/wbs.md)
 
+- **REQ-002 (một phần)** — `RasterPacker` (đóng gói `MonoBitmap` thành lệnh
+  `GS v 0`, chia dải theo `bandHeight` để không tràn buffer máy in),
+  `Dither.threshold` (ảnh xám -> 1-bit theo ngưỡng), contract `TextRasterizer`/
+  `RasterBlock`/`RasterLine`/`RasterSpan` (KMP, `skyprint-core`).
+  `EscPosEncoder` giờ nhận `rasterizer: TextRasterizer?` -- `TextMode.RASTER`
+  gom `Text`/`Row`/`Divider` liên tiếp thành 1 khối, gọi rasterizer 1 lần
+  cho cả khối (ít lệnh `GS v 0` hơn); `Element.Image` dùng `RasterPacker`
+  trực tiếp, hoạt động ở CẢ hai `TextMode`.
+  **Chưa cài** (cần toolchain Android/iOS thật, không giả lập bằng JVM
+  thuần được): `AndroidTextRasterizer` (Canvas/StaticLayout), iOS
+  (CoreText), Flutter (dart:ui) -- việc riêng, theo dõi tiếp.
+  [CODE-005](docs/wbs.md)
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`
