@@ -101,6 +101,24 @@ khi nâng version — xem chính sách tương thích ngược ở
   trả nhầm cả chuỗi gốc (còn dính phần port hỏng) làm host khi port không
   parse được số -- sửa trước khi commit. [CODE-008](docs/wbs.md)
 
+- **REQ-007** — `BlePrinterTransport` (KMP `commonMain`, dùng Kable
+  0.45.0): in qua BLE, chạy được cả Android và iOS không cần code riêng
+  nền tảng (giống REQ-005's LAN, khác REQ-004's USB). `CharacteristicResolver`
+  chọn UUID service/characteristic để ghi theo thứ tự: cấu hình tường
+  minh của app → danh sách UUID phổ biến của máy in nhiệt BLE giá rẻ
+  (`BleDefaults.KNOWN_PAIRS`, theo đúng thứ tự khai) → characteristic ghi
+  được đầu tiên tìm thấy (ưu tiên `WithResponse` có xác nhận hơn
+  `WithoutResponse`). Ghi theo MTU thật (trừ 3 byte header ATT, mặc định
+  an toàn 20 nếu truy vấn MTU thất bại), có nghỉ giữa các gói khi dùng
+  `WithoutResponse` để không tràn buffer máy in giá rẻ.
+  API Kable thật đã soi qua javap trước khi viết (không đoán theo tài
+  liệu tóm tắt) -- biên dịch sạch cả JVM lẫn Android target.
+  **Chưa test** `open()`/`write()` với thiết bị BLE thật -- chưa có máy
+  in BLE sẵn để verify (khác REQ-004 lúc có ACE3 + ICOD sẵn), và Kable
+  không cung cấp fake/mock cho BLE stack; `CharacteristicResolver` (phần
+  logic dễ sai nhất) đã test đầy đủ bằng dữ liệu thuần.
+  [CODE-009](docs/wbs.md)
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`

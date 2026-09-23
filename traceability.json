@@ -142,6 +142,24 @@
       "type": "CODE",
       "updated_at": "2026-09-23T07:27:06Z"
     },
+    "CODE-009": {
+      "code_ref": "kmp/skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/ble/BlePrinterTransport.kt",
+      "created_at": "2026-09-23T07:35:57Z",
+      "depends_on": [
+        "DESIGN-007",
+        "DESIGN-008"
+      ],
+      "module": "kmp",
+      "note": "commonMain (Kable 0.45.0) -- chạy được cả Android và iOS không cần code riêng nền tảng (giống REQ-005's LAN, khác REQ-004's USB). API Kable thật đã soi qua javap trước khi viết (Peripheral(identifier), String.toIdentifier(), Characteristic.Properties.write/writeWithoutResponse, WriteType, maximumWriteValueLengthForType) -- biên dịch sạch cả JVM lẫn Android target. CharacteristicResolver (chọn UUID: cấu hình tường minh > knownPairs theo thứ tự khai > characteristic ghi được đầu tiên, ưu tiên WithResponse) tách thành logic thuần, test đầy đủ 8 case. CHƯA test open()/write() thật với thiết bị BLE -- không có máy in BLE sẵn để verify (khác REQ-004 lúc có ACE3+ICOD sẵn), và Kable không cung cấp fake/mock cho BLE stack. Cần xác minh trên thiết bị BLE thật trước khi tin tưởng hoàn toàn phần connect/discover/write.",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: BlePrinterTransport + CharacteristicResolver (Kable, commonMain) (KMP)",
+      "traces_to": [
+        "TEST-UNIT-013"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-23T07:35:57Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -814,8 +832,20 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-23T07:27:06Z"
+    },
+    "TEST-UNIT-013": {
+      "created_at": "2026-09-23T07:35:57Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.ble.CharacteristicResolverTest",
+      "title": "Unit: CharacteristicResolver (chọn UUID BLE) (REQ-007)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:35:57Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T07:27:06Z"
+  "updated_at": "2026-09-23T07:35:57Z"
 }

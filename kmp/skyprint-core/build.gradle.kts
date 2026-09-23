@@ -29,6 +29,7 @@ kotlin {
         commonMain.dependencies {
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
             implementation("io.ktor:ktor-network:3.4.1") // REQ-005 -- socket TCP đa nền tảng (Android + iOS)
+            implementation("com.juul.kable:kable-core:0.45.0") // REQ-007 -- BLE đa nền tảng (Android + iOS)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
