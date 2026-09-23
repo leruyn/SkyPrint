@@ -28,6 +28,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+            implementation("io.ktor:ktor-network:3.4.1") // REQ-005 -- socket TCP đa nền tảng (Android + iOS)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))

@@ -91,6 +91,16 @@ khi nâng version — xem chính sách tương thích ngược ở
   thành công, không crash, giấy in ra đúng nội dung -- đóng nốt phần
   "chưa test ghép nối đầy đủ" còn treo từ bản trước. [CODE-007](docs/wbs.md)
 
+- **REQ-005** — `LanPrinterTransport` (KMP `commonMain`, dùng
+  `ktor-network` 3.4.1): in qua LAN/Wi-Fi bằng raw TCP, mặc định cổng 9100
+  (JetDirect). Chạy được cả Android và iOS mà không cần code riêng nền
+  tảng (khác REQ-004's USB) -- chỉ chưa build cho iOS vì Gradle chưa thêm
+  `iosArm64()` target. Test bằng server TCP thật chạy loopback ngay trong
+  test (bind cổng ngẫu nhiên, accept, đọc byte) -- mạng/OS thật, không
+  mock, dù không phải máy in thật. Bắt 1 bug thật lúc chạy: `parseAddress`
+  trả nhầm cả chuỗi gốc (còn dính phần port hỏng) làm host khi port không
+  parse được số -- sửa trước khi commit. [CODE-008](docs/wbs.md)
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`

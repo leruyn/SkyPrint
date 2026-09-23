@@ -124,6 +124,24 @@
       "type": "CODE",
       "updated_at": "2026-09-23T07:17:41Z"
     },
+    "CODE-008": {
+      "code_ref": "kmp/skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/lan/LanPrinterTransport.kt",
+      "created_at": "2026-09-23T07:27:06Z",
+      "depends_on": [
+        "DESIGN-005",
+        "DESIGN-008"
+      ],
+      "module": "kmp",
+      "note": "commonMain (ktor-network 3.4.1) -- chạy được cả Android và iOS, không cần code riêng nền tảng như REQ-004's USB (Gradle chưa thêm iosArm64 target, nhưng ktor-network hỗ trợ sẵn khi thêm). Test bằng server TCP thật chạy loopback trong cùng test (bind cổng ngẫu nhiên, accept, đọc byte) -- không phải máy in thật, nhưng là mạng TCP/OS thật, không mock. Bắt 1 bug thật lúc chạy: parseAddress trả nguyên address gốc (còn dính ':abc') làm host khi phần port không parse được số, thay vì cắt bỏ phần port hỏng -- sửa trước khi commit. KHÔNG test CONNECT_TIMEOUT bằng địa chỉ mạng thật (dễ chập chờn theo môi trường sandbox); nhánh withTimeout dựa vào cơ chế đã kiểm chứng của kotlinx.coroutines, không phải logic tự viết.",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: LanPrinterTransport (ktor-network, commonMain) (KMP)",
+      "traces_to": [
+        "TEST-UNIT-012"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-23T07:27:06Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -784,8 +802,20 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-23T07:04:18Z"
+    },
+    "TEST-UNIT-012": {
+      "created_at": "2026-09-23T07:27:06Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.lan.LanPrinterTransportTest",
+      "title": "Unit: LanPrinterTransport (server TCP thật loopback) (REQ-005)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:27:06Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T07:17:41Z"
+  "updated_at": "2026-09-23T07:27:06Z"
 }
