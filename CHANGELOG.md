@@ -119,6 +119,20 @@ khi nâng version — xem chính sách tương thích ngược ở
   logic dễ sai nhất) đã test đầy đủ bằng dữ liệu thuần.
   [CODE-009](docs/wbs.md)
 
+- **REQ-006** — `BtClassicPrinterTransport` (KMP `androidMain`) qua SPP
+  (Bluetooth Classic), chỉ nói chuyện thiết bị đã ghép nối trong Cài đặt
+  hệ thống (không discovery/pairing trong thư viện). Thử `secure` trước,
+  tự chuyển `insecure` nếu thất bại (`BtConfig.insecureFallback`, mặc
+  định bật -- một số máy in giá rẻ chỉ chấp nhận insecure).
+  Test qua Robolectric **chạy thật và đúng** (giống REQ-004's USB, khác
+  gap của REQ-002/REQ-007) -- `BluetoothAdapter`/`BluetoothDevice`/
+  `BluetoothSocket` có shadow dữ liệu thuần đầy đủ, kể cả đọc lại byte đã
+  ghi qua `ShadowBluetoothSocket.outputStreamSink`. Cần `@Config(sdk=[33])`
+  vì SDK mặc định của Robolectric có thể dưới 31 (BLUETOOTH_CONNECT chỉ
+  là runtime permission từ API 31). Chưa test trên máy in Bluetooth
+  Classic thật (không có sẵn thiết bị loại này, khác REQ-004 lúc có ACE3
+  sẵn). [CODE-010](docs/wbs.md)
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`

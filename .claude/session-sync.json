@@ -1,12 +1,17 @@
 {
-  "last_updated": "2026-09-23T07:27:45.732Z",
+  "last_updated": "2026-09-23T07:36:47.035Z",
   "cwd": "/Users/leruyn/Project/Dcorp/skyprint",
   "branch": "main",
   "git_status": null,
-  "recent_commits": "c768c12 feat(kmp): REQ-005 LAN TCP transport (ktor-network)\n2a0606e test(kmp): xác minh REQ-004 USB trên thiết bị thật (ACE3)\ncf6c04c feat(kmp): REQ-004 USB transport (Android) qua Robolectric thật\n1e1c1f1 build(kmp): chuyển sang com.android.kotlin.multiplatform.library\n10118d2 feat(kmp): REQ-002 AndroidTextRasterizer + androidTarget/Robolectric setup\nbfe203a feat(kmp): REQ-002 (một phần) RasterPacker + EscPosEncoder RASTER wiring\n3687958 feat(kmp): REQ-008 PrintQueue + PrinterTransport contract\ndb8ef1a feat(kmp): REQ-009 template engine (skyprint-template)",
+  "recent_commits": "0ef081d feat(kmp): REQ-007 BLE transport (Kable)\nc768c12 feat(kmp): REQ-005 LAN TCP transport (ktor-network)\n2a0606e test(kmp): xác minh REQ-004 USB trên thiết bị thật (ACE3)\ncf6c04c feat(kmp): REQ-004 USB transport (Android) qua Robolectric thật\n1e1c1f1 build(kmp): chuyển sang com.android.kotlin.multiplatform.library\n10118d2 feat(kmp): REQ-002 AndroidTextRasterizer + androidTarget/Robolectric setup\nbfe203a feat(kmp): REQ-002 (một phần) RasterPacker + EscPosEncoder RASTER wiring\n3687958 feat(kmp): REQ-008 PrintQueue + PrinterTransport contract",
   "session_id": "ad1e2478-cdda-42ef-bc30-5a3a9dec5d66",
   "transcript_path": "/Users/leruyn/.claude/projects/-Users-leruyn-Project-Dcorp/ad1e2478-cdda-42ef-bc30-5a3a9dec5d66.jsonl",
   "history": [
+    {
+      "at": "2026-09-23T07:36:47.035Z",
+      "branch": "main",
+      "git_status": ""
+    },
     {
       "at": "2026-09-23T07:27:45.732Z",
       "branch": "main",
@@ -24,11 +29,6 @@
     },
     {
       "at": "2026-09-23T06:49:39.204Z",
-      "branch": "main",
-      "git_status": ""
-    },
-    {
-      "at": "2026-09-23T06:39:43.742Z",
       "branch": "main",
       "git_status": ""
     }

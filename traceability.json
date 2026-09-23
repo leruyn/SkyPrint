@@ -160,6 +160,24 @@
       "type": "CODE",
       "updated_at": "2026-09-23T07:35:57Z"
     },
+    "CODE-010": {
+      "code_ref": "kmp/skyprint-core/src/androidMain/kotlin/com/dcorp/skyprint/core/bt/BtClassicPrinterTransport.kt",
+      "created_at": "2026-09-23T07:41:59Z",
+      "depends_on": [
+        "DESIGN-006",
+        "DESIGN-008"
+      ],
+      "module": "kmp",
+      "note": "androidMain -- chỉ nói chuyện thiết bị đã ghép nối qua Cài đặt hệ thống (không discovery/pairing trong lib). Test qua Robolectric CHẠY THẬT VÀ ĐÚNG (giống REQ-004's USB, khác gap REQ-002/REQ-007 -- BluetoothAdapter/BluetoothDevice/BluetoothSocket là shadow dữ liệu thuần có sẵn đầy đủ trong Robolectric, kể cả đọc lại byte đã ghi qua ShadowBluetoothSocket.outputStreamSink). Cần @Config(sdk=[33]) vì SDK mặc định Robolectric có thể dưới 31 khiến nhánh kiểm BLUETOOTH_CONNECT (chỉ là runtime permission từ API 31) không được exercise. Thử secure trước, insecure fallback nếu connect() secure thất bại (config.insecureFallback, mặc định bật). CHƯA test trên máy in Bluetooth Classic thật (không có sẵn thiết bị loại này để verify, khác REQ-004 lúc có ACE3+ICOD USB sẵn) -- 5/5 test Robolectric pass thật, nhưng phần cứng thật vẫn cần xác minh khi có.",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: BtClassicPrinterTransport (Bluetooth SPP, androidMain) (KMP)",
+      "traces_to": [
+        "TEST-UNIT-014"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-23T07:41:59Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -844,8 +862,20 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-23T07:35:57Z"
+    },
+    "TEST-UNIT-014": {
+      "created_at": "2026-09-23T07:41:59Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.bt.BtClassicPrinterTransportTest",
+      "title": "Unit: BtClassicPrinterTransport qua Robolectric thật (REQ-006)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:41:59Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T07:35:57Z"
+  "updated_at": "2026-09-23T07:41:59Z"
 }
