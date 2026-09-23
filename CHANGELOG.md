@@ -23,6 +23,18 @@ khi nâng version — xem chính sách tương thích ngược ở
   không hỗ trợ trước khi encode (không phát byte lạ), kèm cảnh báo.
   [CODE-002](docs/wbs.md)
 
+- **REQ-009** — Template engine (module mới `skyprint-template`, KMP):
+  `TemplateParser.parse()` đọc JSON mẫu in; `TemplateEngine.validate()` kiểm
+  mọi biến `{{...}}`/`if`/`each` có thuộc schema chứng từ không (chặn lúc
+  Lưu); `TemplateEngine.render()` ghép mẫu + dữ liệu thành `ReceiptDocument`
+  của `skyprint-core` -- hỗ trợ nội suy `{{path | formatter:'arg'}}`
+  (`money`, `number`, `upper`, `lower`, `default`, `truncate`, `pad`,
+  `datetime`), vòng lặp `each`/`as` (kể cả lồng nhau), điều kiện `if`
+  (`&&`/`||`/so sánh/phủ định), khối `enabled` tĩnh. Biến thiếu -> chuỗi
+  rỗng + không huỷ lệnh in; phần tử có dữ liệu không hợp lệ sau nội suy (vd
+  mã vạch sai độ dài) -> bỏ qua đúng phần tử đó kèm cảnh báo, không crash
+  cả bản in. [CODE-003](docs/wbs.md)
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`
