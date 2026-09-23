@@ -20,7 +20,7 @@ thư viện dùng chung nhiều dự án, đổi API ảnh hưởng tất cả n
 
 ```kotlin
 // settings.gradle.kts của dự án dùng skyprint
-dependencyResolutionManagement { repositories { /* GitLab Package Registry nội bộ, xem architecture.md */ } }
+dependencyResolutionManagement { repositories { /* GitHub Packages nội bộ, xem architecture.md hoặc docs/features/REQ-011/design.md */ } }
 
 // build.gradle.kts của module cần in
 dependencies {

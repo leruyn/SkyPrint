@@ -374,7 +374,7 @@
       "owner": "",
       "spec_ref": "docs/features/REQ-011/design.md",
       "status": "done",
-      "title": "DESIGN: Publish workflow + migration 2 consumer sang GitLab Package Registry",
+      "title": "DESIGN: Publish workflow + migration 2 consumer sang GitHub Packages",
       "traces_to": [
         "TEST-SIT-011"
       ],
@@ -651,7 +651,7 @@
       "module": "kmp",
       "owner": "",
       "status": "pass",
-      "title": "TEST-SIT-011: publish thật lên GitLab Package Registry, 2 consumer resolve được",
+      "title": "TEST-SIT-011: publish thật lên GitHub Packages, 2 consumer resolve được",
       "traces_to": [],
       "type": "TEST-SIT",
       "updated_at": "2026-09-23T10:23:24Z"

@@ -5,19 +5,17 @@
 ## Kiến trúc publish
 
 ```
-skyprint (git remote mới)
+skyprint (GitHub: https://github.com/leruyn/SkyPrint.git)
   └─ kmp/skyprint-core/build.gradle.kts  -- maven-publish (đã có từ trước, xem CODE-012)
        publishing {
          repositories {
            maven {
-             name = "GitLabDcorp"
-             url = uri("https://<gitlab-host>/api/v4/projects/<PROJECT_ID>/packages/maven")
-             credentials(HttpHeaderCredentials::class) {
-               name = "Job-Token"                     // CI
-               value = System.getenv("CI_JOB_TOKEN")
-                 ?: System.getenv("GITLAB_DEPLOY_TOKEN") // publish tay, xem "Auth"
+             name = "GitHubPackages"
+             url = uri("https://maven.pkg.github.com/leruyn/SkyPrint")
+             credentials {
+               username = System.getenv("GITHUB_ACTOR") ?: (project.findProperty("gpr.user") as? String) ?: "leruyn"
+               password = System.getenv("GITHUB_TOKEN") ?: (project.findProperty("gpr.key") as? String) ?: ""
              }
-             authentication { create<HttpHeaderAuthentication>("header") }
            }
          }
        }
@@ -27,8 +25,13 @@ KMP tự sinh sẵn 5 publication (`kotlinMultiplatform`, `android`, `jvm`, `ios
 
 ## Auth
 
-- **CI** (khuyến nghị lâu dài): `CI_JOB_TOKEN` GitLab tự cấp cho mỗi job, không cần lưu secret riêng — chỉ cần project publish có quyền ghi Package Registry của chính nó (mặc định có).
-- **Publish tay** (bước 4 của REQ-011, làm trước khi có CI): tạo GitLab **Deploy Token** (scope `write_package_registry`) hoặc **Personal Access Token** cùng scope, export `GITLAB_DEPLOY_TOKEN=<token>` trước khi chạy `./gradlew :skyprint-core:publish`. KHÔNG hard-code token vào `build.gradle.kts` hay commit vào git.
+- **CI** (GitHub Actions): `GITHUB_TOKEN` do GitHub Actions tự cấp cho mỗi run thông qua `secrets.GITHUB_TOKEN` với permission `packages: write`.
+- **Publish tay** (bước 4 của REQ-011, làm trước khi có CI): tạo GitHub **Personal Access Token (classic hoặc fine-grained)** với scope `write:packages` (và `read:packages`), export `GITHUB_ACTOR=<username>` và `GITHUB_TOKEN=<pat>` hoặc cấu hình trong `~/.gradle/gradle.properties`:
+  ```properties
+  gpr.user=<github-username>
+  gpr.key=<github-pat>
+  ```
+  trước khi chạy `./gradlew :skyprint-core:publish` (hoặc `publishAllPublicationsToGitHubPackagesRepository`). KHÔNG hard-code token vào `build.gradle.kts` hay commit vào git.
 
 ## Version
 
@@ -46,10 +49,11 @@ includeBuild("../../../skyprint/kmp")
 Thay bằng (trong `dependencyResolutionManagement.repositories`):
 ```kotlin
 maven {
-    url = uri("https://<gitlab-host>/api/v4/projects/<PROJECT_ID>/packages/maven")
-    // CI: HttpHeaderCredentials "Job-Token"/CI_JOB_TOKEN. Máy dev: Deploy Token
-    // read_package_registry, KHÔNG commit token vào git — đọc từ
-    // gradle.properties cục bộ (gitignored) hoặc biến môi trường.
+    url = uri("https://maven.pkg.github.com/leruyn/SkyPrint")
+    credentials {
+        username = System.getenv("GITHUB_ACTOR") ?: (extra.properties["gpr.user"] as? String) ?: "leruyn"
+        password = System.getenv("GITHUB_TOKEN") ?: (extra.properties["gpr.key"] as? String) ?: ""
+    }
 }
 ```
 `skytab/build.gradle.kts` — đổi:
@@ -81,8 +85,11 @@ repositories {
     google()
     mavenCentral()
     maven {
-        url 'https://<gitlab-host>/api/v4/projects/<PROJECT_ID>/packages/maven'
-        // credentials -- xem cách SkytabOffline làm, KHÔNG commit token vào git
+        url 'https://maven.pkg.github.com/leruyn/SkyPrint'
+        credentials {
+            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR") ?: "leruyn"
+            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN") ?: ""
+        }
     }
 }
 dependencies {
@@ -90,18 +97,52 @@ dependencies {
 }
 ```
 
-## CI (optional follow-up, không chặn REQ-011)
+## CI (GitHub Actions)
 
-`.gitlab-ci.yml` ở repo skyprint, job chạy khi tag `v*`:
+`.github/workflows/publish.yml` ở repo skyprint, job chạy khi tag `v*` hoặc manual dispatch:
 ```yaml
-publish-sdk:
-  stage: deploy
-  rules:
-    - if: '$CI_COMMIT_TAG =~ /^v/'
-  script:
-    - cd kmp && ./gradlew :skyprint-core:publish
+name: CI & Publish SDK
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - run: cd kmp && ./gradlew check
+
+  publish:
+    needs: check
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    runs-on: macos-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: cd kmp && ./gradlew :skyprint-core:publish :skyprint-template:publish
 ```
-Cần runner macOS (Kotlin/Native iOS targets biên dịch trên Linux runner sẽ fail biên dịch iosArm64/iosSimulatorArm64 — xem GitLab macOS runner nội bộ nếu có, hoặc tạm giới hạn CI job chỉ publish variant `android`+`jvm` bằng `./gradlew :skyprint-core:publishAndroidPublicationToGitLabDcorpRepository :skyprint-core:publishJvmPublicationToGitLabDcorpRepository` nếu chưa có runner macOS).
+Sử dụng runner `macos-latest` giúp build và publish đầy đủ cả Android, JVM lẫn iOS targets (`iosArm64`, `iosSimulatorArm64`) trơn tru.
 
 ## Dependencies
 
@@ -109,6 +150,5 @@ Cần runner macOS (Kotlin/Native iOS targets biên dịch trên Linux runner s�
 
 ## Risks / open questions
 
-- **Chưa chốt GitLab project/namespace cụ thể** — REQ-011's Main flow bước 1 cần PM/PO xác nhận trước khi ai đó (kể cả Cursor) tự tạo project mới.
-- Runner CI thiếu macOS → publish target iOS từ CI sẽ fail; publish tay từ máy Mac (như hiện tại) vẫn là đường đi chính cho tới khi có runner phù hợp.
 - `0.1.0-local` hiện đang được `SkyprintUsbTestActivity`/`skyprint_flutter` tham chiếu cứng — migration 2 consumer (mục trên) phải làm **cùng lúc** với publish thật, nếu không 2 app sẽ gãy build (không tìm thấy `0.1.0-local` trên registry, đúng như thiết kế — registry không có version đó).
+- Client tải artifact từ GitHub Packages Maven repository cần có GitHub credentials (PAT có quyền `read:packages`), do GitHub Packages yêu cầu xác thực kể cả với public/internal repo.

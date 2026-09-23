@@ -9,11 +9,11 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ### Added
 
-- **REQ-011** — Đồng bộ skyprint lên Git + publish SDK (GitLab Maven Package Registry):
-  cấu hình `publishing.repositories` trỏ tới GitLab Package Registry của project `116`
-  (`https://gitlab.skyxtech.com.vn/api/v4/projects/116/packages/maven`), hỗ trợ `CI_JOB_TOKEN`,
-  `GITLAB_DEPLOY_TOKEN`, và Personal Access Token. Bổ sung `.gitlab-ci.yml` cho CI/CD pipeline
-  tự động test và publish khi push tag. Chuyển `version` từ `0.1.0-local` sang `0.1.0`.
+- **REQ-011** — Đồng bộ skyprint lên Git + publish SDK (GitHub Packages Maven):
+  cấu hình `publishing.repositories` trỏ tới GitHub Packages Maven repository của repo `SkyPrint`
+  (`https://maven.pkg.github.com/leruyn/SkyPrint`), hỗ trợ `GITHUB_ACTOR` + `GITHUB_TOKEN` (CI)
+  và Personal Access Token (`gpr.user`/`gpr.key`). Bổ sung `.github/workflows/publish.yml` cho CI/CD pipeline
+  tự động test và publish khi push tag `v*`. Chuyển `version` từ `0.1.0-local` sang `0.1.0`.
 
 
 - **REQ-001** — Document model (`ReceiptDocument`, `Element`, `TextStyle`,

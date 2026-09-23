@@ -153,7 +153,7 @@ kmp, shared
 ### ✅ REQ-011 — Đồng bộ skyprint lên Git + publish SDK (Maven Package Registry) (done) `[kmp]`
 - spec_ref: `docs/features/REQ-011/req.md`
 - UAT: ✅ TEST-UAT-011 (pass)
-  - ✅ **DESIGN-011** — DESIGN: Publish workflow + migration 2 consumer sang GitLab Package Registry (done)
+  - ✅ **DESIGN-011** — DESIGN: Publish workflow + migration 2 consumer sang GitHub Packages (done)
     - spec_ref: `docs/features/REQ-011/design.md`
     - SIT: ✅ TEST-SIT-011 (pass)
 

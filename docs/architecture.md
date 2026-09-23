@@ -99,7 +99,7 @@ license công cộng, issue tracker mở, chứng nhận đa hãng ngay). Scope 
 vụ (F&B POS) giữ nguyên cho tới khi có dự án cụ thể khác cần thêm (chốt: làm
 tổng quát trước, chưa map dự án nào ngoài SkytabOffline + SkyPos-Flutter).
 
-- KMP: Maven (`com.dcorp.skyprint:*`), trước mắt `mavenLocal`/GitLab Package Registry nội bộ; Maven Central chỉ nếu sau này mở public.
+- KMP: Maven (`com.dcorp.skyprint:*`), trước mắt `mavenLocal`/GitHub Packages nội bộ; Maven Central chỉ nếu sau này mở public.
 - Flutter: git dependency (tag) hoặc pub server nội bộ; pub.dev chỉ nếu mở public.
 - Hai bản cùng số version (SemVer) — golden fixtures là hợp đồng giữa chúng.
 - **SemVer kỷ luật dù chỉ dùng nội bộ**: đổi API không tương thích ngược →

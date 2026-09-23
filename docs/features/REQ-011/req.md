@@ -20,23 +20,23 @@ skyprint trở thành SDK nội bộ dùng được từ bất kỳ máy nào tr
 
 ## Preconditions
 
-- Có 1 GitLab project trống (hoặc repo Git nội bộ tương đương) để làm remote cho skyprint.
-- Có quyền tạo/ghi vào GitLab Package Registry của project đó (hoặc quyền admin để bật).
+- Có 1 GitHub repository trống (hoặc repo Git tương đương) để làm remote cho skyprint: `https://github.com/leruyn/SkyPrint.git`.
+- Có quyền ghi vào GitHub Packages của repository đó (Personal Access Token với scope `write:packages` hoặc GitHub Actions `GITHUB_TOKEN`).
 
 ## Main flow
 
-1. PM/PO: tạo GitLab project rỗng cho `skyprint` (không init README từ GitLab để tránh conflict).
-2. PM/PO: `git remote add origin <url>`, review lại toàn bộ `git status` hiện tại (nhiều file uncommitted — xem "Bối cảnh"), commit theo từng REQ đã hoàn thành (KHÔNG gộp 1 commit khổng lồ — xem Acceptance criteria), rồi `git push -u origin main`.
-3. PM/PO (hoặc CI): cấu hình `publishing.repositories` trong `kmp/skyprint-core/build.gradle.kts` (và `skyprint-template`) trỏ tới GitLab Package Registry của project vừa tạo (Maven repository, auth qua `CI_JOB_TOKEN` trong CI hoặc Personal/Deploy Token lúc chạy tay).
-4. PM/PO: bump `version` ở `kmp/build.gradle.kts` từ `0.1.0-local` sang version thật đầu tiên (đề xuất `0.1.0`), publish thật: `./gradlew :skyprint-core:publish` (không phải `publishToMavenLocal`).
-5. Consumer (SkytabOffline): thay `includeBuild("../../../skyprint/kmp")` trong `settings.gradle.kts` bằng repository GitLab Package Registry + `implementation("com.dcorp.skyprint:skyprint-core:0.1.0")` theo đúng README's "Mức 2" (xem DESIGN-011 mục Migration).
-6. Consumer (SkyPos-Flutter's `skyprint_flutter/android/build.gradle`): thay `mavenLocal()` bằng cùng GitLab Package Registry, coordinate y hệt SkytabOffline.
+1. PM/PO: tạo GitHub repo `https://github.com/leruyn/SkyPrint.git` cho `skyprint`.
+2. PM/PO: `git remote add origin https://github.com/leruyn/SkyPrint.git` (hoặc `git remote set-url origin`), review commit theo từng REQ đã hoàn thành, rồi `git push -u origin main`.
+3. PM/PO (hoặc CI): cấu hình `publishing.repositories` trong `kmp/skyprint-core/build.gradle.kts` (và `skyprint-template`) trỏ tới GitHub Packages (`https://maven.pkg.github.com/leruyn/SkyPrint`), auth qua `GITHUB_ACTOR` + `GITHUB_TOKEN` trong CI hoặc Personal Access Token (`gpr.user`/`gpr.key`) lúc chạy tay.
+4. PM/PO: bump `version` ở `kmp/build.gradle.kts` từ `0.1.0-local` sang version thật đầu tiên (`0.1.0`), publish thật: `./gradlew :skyprint-core:publish` (hoặc `publishAllPublicationsToGitHubPackagesRepository`).
+5. Consumer (SkytabOffline): thay `includeBuild("../../../skyprint/kmp")` trong `settings.gradle.kts` bằng repository GitHub Packages + `implementation("com.dcorp.skyprint:skyprint-core:0.1.0")` theo đúng README's "Mức 2" (xem DESIGN-011 mục Migration).
+6. Consumer (SkyPos-Flutter's `skyprint_flutter/android/build.gradle`): thay `mavenLocal()` bằng cùng GitHub Packages repository, coordinate y hệt SkytabOffline.
 
 ## Alternate / exception flows
 
-- Chưa có GitLab project sẵn / chưa quyết được host nội bộ nào: tạm dừng ở bước 1, KHÔNG tự ý tạo project mới nếu chưa được xác nhận tên/namespace.
-- CI chưa sẵn sàng (chưa có `.gitlab-ci.yml`): publish tay bước 4 vẫn hợp lệ để bắt đầu dùng ngay, CI job là việc làm thêm sau (xem DESIGN-011 mục CI), không chặn REQ này.
-- Nếu quyết định KHÔNG dùng GitLab Package Registry (vd dùng GitHub Packages/Nexus khác): toàn bộ flow trên vẫn đúng, chỉ đổi URL/credential ở bước 3+5+6.
+- Chưa có GitHub repo sẵn: tạm dừng ở bước 1, KHÔNG tự ý tạo repo nếu chưa được xác nhận tên/owner.
+- CI chưa sẵn sàng: publish tay bước 4 vẫn hợp lệ để bắt đầu dùng ngay, CI workflow là việc làm thêm (xem DESIGN-011 mục CI), không chặn REQ này.
+- Nếu quyết định dùng registry khác (vd Nexus/GitLab Package Registry): toàn bộ flow trên vẫn đúng, chỉ đổi URL/credential ở bước 3+5+6.
 
 ## Postconditions
 
@@ -52,8 +52,8 @@ skyprint trở thành SDK nội bộ dùng được từ bất kỳ máy nào tr
 
 ## Acceptance criteria (feeds TEST-UAT-012)
 
-- [ ] `git log` trên remote GitLab có lịch sử commit chia theo REQ (không phải 1 commit "add everything"), review được từng thay đổi độc lập.
+- [ ] `git log` trên remote GitHub có lịch sử commit chia theo REQ (không phải 1 commit "add everything"), review được từng thay đổi độc lập.
 - [ ] `git clone` skyprint ra thư mục mới, `cd kmp && ./gradlew build` chạy PASS không cần sửa file nào.
-- [ ] Từ máy/thư mục khác (khác máy đã publish), `./gradlew build` của SkytabOffline chạy được sau khi đổi sang coordinate GitLab Package Registry, KHÔNG cần `includeBuild`.
-- [ ] Từ máy/thư mục khác, `flutter build apk` của SkyPos-Flutter's `apps/master` chạy được sau khi đổi `skyprint_flutter/android/build.gradle` sang GitLab Package Registry, KHÔNG cần `publishToMavenLocal` trước đó trên máy đó.
+- [ ] Từ máy/thư mục khác (khác máy đã publish), `./gradlew build` của SkytabOffline chạy được sau khi đổi sang coordinate GitHub Packages, KHÔNG cần `includeBuild`.
+- [ ] Từ máy/thư mục khác, `flutter build apk` của SkyPos-Flutter's `apps/master` chạy được sau khi đổi `skyprint_flutter/android/build.gradle` sang GitHub Packages, KHÔNG cần `publishToMavenLocal` trước đó trên máy đó.
 - [ ] `CHANGELOG.md` cập nhật đúng version đã publish.
