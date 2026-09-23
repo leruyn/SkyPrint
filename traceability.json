@@ -178,6 +178,25 @@
       "type": "CODE",
       "updated_at": "2026-09-23T07:41:59Z"
     },
+    "CODE-011": {
+      "code_ref": "kmp/skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/discovery/CompositeDiscovery.kt",
+      "created_at": "2026-09-23T07:52:22Z",
+      "depends_on": [
+        "DESIGN-003"
+      ],
+      "module": "kmp",
+      "note": "commonMain: PrinterDiscovery (contract), CompositeDiscovery (gộp song song + khử trùng theo id, test bằng fake discovery), LanProbe + SubnetScanner (quét /24 đồng thời, LanProbe test bằng server loopback thật như REQ-005, SubnetScanner test bằng probe giả), LanDiscovery (nối 2 cái trên + LocalSubnetProvider), SubnetMath.deriveSubnetHosts (toán /24 thuần, tách khỏi cách lấy IP thật để test không cần Android). BleDiscovery (Kable Scanner) -- CHƯA test thiết bị thật, cùng giới hạn CODE-009. androidMain: UsbDiscovery/BtClassicDiscovery (wrapper mỏng quanh UsbPrinterTransport.listCandidates/BtClassicPrinterTransport.listCandidates đã test kỹ ở CODE-007/CODE-010 -- không viết Robolectric test riêng cho wrapper, tránh test trùng lặp giá trị thấp), AndroidLocalSubnetProvider (lấy IP qua ConnectivityManager, wrapper mỏng quanh SubnetMath đã test).",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: PrinterDiscovery + CompositeDiscovery + Lan/Usb/Bt/Ble Discovery (KMP)",
+      "traces_to": [
+        "TEST-UNIT-015",
+        "TEST-UNIT-016",
+        "TEST-UNIT-017"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-23T07:52:22Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -874,8 +893,44 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-23T07:41:59Z"
+    },
+    "TEST-UNIT-015": {
+      "created_at": "2026-09-23T07:52:22Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.discovery.CompositeDiscoveryTest",
+      "title": "Unit: CompositeDiscovery (gộp + khử trùng) (REQ-003)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:52:22Z"
+    },
+    "TEST-UNIT-016": {
+      "created_at": "2026-09-23T07:52:22Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.discovery.LanDiscoveryTest",
+      "title": "Unit: LanProbe + SubnetScanner + LanDiscovery (REQ-003)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:52:22Z"
+    },
+    "TEST-UNIT-017": {
+      "created_at": "2026-09-23T07:52:22Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.discovery.SubnetMathTest",
+      "title": "Unit: SubnetMath (/24 thuần) (REQ-003)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T07:52:22Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T07:41:59Z"
+  "updated_at": "2026-09-23T07:52:22Z"
 }

@@ -133,6 +133,21 @@ khi nâng version — xem chính sách tương thích ngược ở
   Classic thật (không có sẵn thiết bị loại này, khác REQ-004 lúc có ACE3
   sẵn). [CODE-010](docs/wbs.md)
 
+- **REQ-003** — Gộp tìm máy in từ cả 4 transport (KMP): `PrinterDiscovery`
+  (contract), `CompositeDiscovery` (chạy song song, khử trùng theo `id`,
+  test bằng discovery giả), `LanProbe` + `SubnetScanner` (quét /24 đồng
+  thời tối đa 32 kết nối song song -- `LanProbe` test bằng server loopback
+  thật như REQ-005, `SubnetScanner` test bằng hàm probe giả),
+  `SubnetMath.deriveSubnetHosts` (toán /24 thuần, tách khỏi cách lấy IP
+  thật để test không cần Android), `LanDiscovery`, `BleDiscovery` (Kable
+  Scanner -- chưa test thiết bị thật, cùng giới hạn REQ-007).
+  `UsbDiscovery`/`BtClassicDiscovery`/`AndroidLocalSubnetProvider`
+  (`androidMain`) là wrapper mỏng quanh logic đã test kỹ ở REQ-004/006 --
+  không viết Robolectric test riêng cho wrapper, tránh test trùng lặp giá
+  trị thấp. [CODE-011](docs/wbs.md)
+- **v1 hoàn tất 10 REQ** (001, 002 một phần -- thiếu rasterizer iOS/
+  Flutter, 003–010). Xem docs/wbs.md để biết trạng thái từng REQ.
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`
