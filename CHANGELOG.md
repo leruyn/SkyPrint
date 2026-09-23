@@ -35,6 +35,15 @@ khi nâng version — xem chính sách tương thích ngược ở
   mã vạch sai độ dài) -> bỏ qua đúng phần tử đó kèm cảnh báo, không crash
   cả bản in. [CODE-003](docs/wbs.md)
 
+- **REQ-008** — `PrinterConnection`/`PrinterTransport` (contract cho
+  REQ-004..007 nối vào), `PrintResult`/`RetryPolicy`, `PrintQueue` (KMP,
+  `skyprint-core`): mỗi máy in một hàng đợi riêng (khoá theo `printer.id`,
+  không bao giờ 2 job ghi xen byte vào cùng 1 máy), retry có giới hạn chỉ
+  với lỗi tạm thời (`PrinterErrorCode.retryable`), timeout toàn job, đóng
+  kết nối kể cả khi job bị huỷ (`NonCancellable`). Thêm `PrinterInfo`/
+  `TransportKind` (mượn trước từ DESIGN-003 -- discovery thật chưa cài).
+  [CODE-004](docs/wbs.md)
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`
