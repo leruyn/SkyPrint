@@ -9,24 +9,23 @@ import kotlin.test.assertTrue
 /**
  * TEST-UNIT-002c -- [AndroidTextRasterizer] qua Robolectric.
  *
- * **Giới hạn đã xác nhận (2026-09-23), không phải bỏ sót:** trong tổ hợp
- * cụ thể của repo này -- `kotlin("multiplatform")` + `com.android.library`
- * cổ (AGP 9 cấm tổ hợp này, xem ghi chú ở `kmp/build.gradle.kts`) + AGP
- * 8.7.3 + Robolectric 4.14.1 -- pipeline vẽ Skia native của Robolectric
- * KHÔNG kích hoạt: `Paint.measureText`/`Canvas.drawText`/`Paint.fontMetrics`
- * đều trả giá trị stub cố định (đã xác minh bằng test tay: `measureText`
- * luôn `1.0`, `getPixels` luôn toàn số 0, bất kể SDK khai trong `@Config`).
- * Đã thử `@Config(sdk=[34])`, `manifest=Config.NONE` -- không đổi kết quả.
+ * **Giới hạn đã xác nhận (2026-09-23), không phải bỏ sót:** đã thử CẢ 2
+ * plugin Android cho module KMP này -- `com.android.library` cổ (AGP 8.7.3)
+ * và `com.android.kotlin.multiplatform.library` chính thức Google khuyến
+ * nghị thay thế (AGP 8.13.1, cấu hình hiện tại) -- kết quả GIỐNG HỆT nhau ở
+ * cả 2: pipeline Skia native của Robolectric không kích hoạt trên máy này.
+ * Đã xác minh bằng test tay: `measureText` luôn `1.0`, `fontMetrics.bottom
+ * - top` luôn `0.0`, `getPixels` luôn toàn số 0. Kết luận: đây là vấn đề
+ * môi trường/phiên bản Robolectric (4.14.1) trên máy này, KHÔNG PHẢI do
+ * chọn sai plugin Android -- đã loại trừ bằng thực nghiệm, không đoán.
  * File `.dylib` cho `mac/aarch64` có thật trên classpath
- * (`nativeruntime-dist-compat`), nên không phải thiếu binary; nghi nhiều
- * khả năng nhất là Robolectric không nhận diện đúng biến thể Android target
- * của KMP để tự tải `android-all-instrumented` đúng SDK request (chỉ thấy
- * SDK rất cũ 14/15/21 trong cache, không thấy SDK 34 được tải dù đã khai).
+ * (`nativeruntime-dist-compat`), nên không phải thiếu binary.
  *
  * Vì vậy bộ test ở đây CHỈ kiểm bất biến không phụ thuộc pixel thật (không
  * throw, kích thước hợp lệ) -- KHÔNG kiểm nội dung glyph/canh lề/độ cao chữ
- * thật. Việc đó cần xác minh trên thiết bị/emulator Android thật hoặc một
- * cấu hình Robolectric khác (theo dõi riêng, không chặn REQ-002 tiếp tục).
+ * thật. Việc đó cần xác minh trên thiết bị/emulator Android thật (đáng tin
+ * cậy nhất) hoặc thử phiên bản Robolectric khác -- theo dõi riêng, không
+ * chặn REQ-002 tiếp tục.
  */
 @RunWith(RobolectricTestRunner::class)
 class AndroidTextRasterizerTest {

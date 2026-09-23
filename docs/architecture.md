@@ -43,6 +43,9 @@ skyprint/
   spec/templates/               # bộ mẫu mặc định (hoá đơn, tạm tính, bếp, huỷ món, ca Z) × 58/80mm
   kmp/
     skyprint-core/              # commonMain: model, encoder, ascii, raster packer, capabilities, errors, queue, contracts
+                                #   androidMain: AndroidTextRasterizer (Canvas/TextPaint) -- plugin
+                                #   com.android.kotlin.multiplatform.library (AGP >=8.10, ghim 8.13.1),
+                                #   không dùng com.android.library cổ (AGP 9+ cấm kết hợp với KMP)
     skyprint-template/          # commonMain: template engine JSON + placeholder (REQ-009)
     skyprint-raster/            # expect/actual TextRasterizer: androidMain (Canvas), iosMain (CoreText)
     skyprint-lan/               # commonMain, ktor-network sockets (Android + iOS)
