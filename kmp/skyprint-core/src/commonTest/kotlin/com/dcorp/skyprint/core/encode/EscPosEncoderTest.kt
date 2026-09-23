@@ -36,15 +36,15 @@ class EscPosEncoderTest {
     @Test
     fun `text don gian phat dung lenh align bold size roi text roi line feed`() {
         val bytes = encode(
-            Element.Text("SKYPOS", TextStyle(align = Align.CENTER, bold = true, size = 2)),
+            Element.Text("SKYPOS", TextStyle(align = Align.CENTER, bold = true, width = 2, height = 2)),
         )
         val expectedTail = byteArrayOf(0x1B, 0x61, 1) +      // ESC a 1 (center)
             byteArrayOf(0x1B, 0x45, 1) +                     // ESC E 1 (bold on)
             byteArrayOf(0x1D, 0x21, 0x11) +                  // GS ! 0x11 (double w+h, size=2)
             "SKYPOS".encodeToByteArray() +
             byteArrayOf(0x0A) +
-            byteArrayOf(0x1B, 0x45, 0) +                     // bold tắt lại sau khi in xong phần tử này
-            byteArrayOf(0x1D, 0x21, 0x00)                    // size trả về bình thường
+            byteArrayOf(0x1D, 0x21, 0x00) +                  // size trả về bình thường -- tắt theo thứ tự ngược lúc bật (LIFO)
+            byteArrayOf(0x1B, 0x45, 0)                       // bold tắt lại sau cùng
         assertContentEquals(expectedTail, bytes.copyOfRange(2, bytes.size))
     }
 
@@ -100,7 +100,7 @@ class EscPosEncoderTest {
 
     @Test
     fun `cut phat dung lenh GS V 66 0`() {
-        val bytes = encode(Element.Cut)
+        val bytes = encode(Element.Cut())
         assertContentEquals(byteArrayOf(0x1D, 0x56, 0x42, 0x00), bytes.copyOfRange(2, bytes.size))
     }
 

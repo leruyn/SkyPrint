@@ -13,14 +13,23 @@ enum class PaperWidth(val columns: Int, val dots: Int) {
 
 enum class Align { LEFT, CENTER, RIGHT }
 
-/** size: 1..8, khớp bit width/height nhân đôi của `GS ! n` (DESIGN-001's EscPosCommands.size dùng bool -- ở đây tổng quát hơn cho REQ-010's Text nhiều cỡ). */
+/**
+ * [width]/[height]: 1..8, khớp 2 nibble độc lập của `GS ! n` (REQ-010 --
+ * máy in ESC/POS cho phép phóng ngang/dọc riêng, không bắt buộc bằng nhau
+ * như `size` gộp một chỉ số ở bản REQ-001 ban đầu). [inverse]: chữ trắng
+ * nền đen (`GS B 1`), dùng cho phiếu huỷ món nổi bật (REQ-010's req.md).
+ */
 data class TextStyle(
     val align: Align = Align.LEFT,
     val bold: Boolean = false,
-    val size: Int = 1,
+    val width: Int = 1,
+    val height: Int = 1,
+    val inverse: Boolean = false,
+    val underline: Boolean = false,
 ) {
     init {
-        require(size in 1..8) { "TextStyle.size phải trong khoảng 1..8, nhận $size" }
+        require(width in 1..8) { "TextStyle.width phải trong khoảng 1..8, nhận $width" }
+        require(height in 1..8) { "TextStyle.height phải trong khoảng 1..8, nhận $height" }
     }
 }
 
@@ -71,10 +80,68 @@ sealed interface Element {
 
     data class Image(val bitmap: MonoBitmap, val align: Align = Align.CENTER) : Element
 
-    data object Cut : Element
+    /** [partial]: cắt một phần (giấy còn dính 1 điểm, dễ xé) -- máy không có dao thay bằng feed qua [CapabilityFilter] (REQ-010). */
+    data class Cut(val partial: Boolean = true) : Element
+
+    data class Barcode(
+        val data: String,
+        val type: BarcodeType = BarcodeType.CODE128,
+        val heightDots: Int = 80,
+        val hri: Boolean = true,
+        val align: Align = Align.CENTER,
+    ) : Element {
+        init {
+            require(data.isNotEmpty()) { "Barcode.data không được rỗng" }
+            require(heightDots in 1..255) { "Barcode.heightDots phải trong khoảng 1..255, nhận $heightDots" }
+            type.validate(data)
+        }
+    }
+
+    /** Mở két tiền (`ESC p`) -- không in giấy. [pin]: chân kết nối két (0 hoặc 1, tuỳ dây RJ11 đấu vào chân nào). */
+    data class Drawer(val pin: Int = 0, val pulseMs: Int = 100) : Element {
+        init {
+            require(pin == 0 || pin == 1) { "Drawer.pin chỉ có 0 hoặc 1, nhận $pin" }
+            require(pulseMs in 1..500) { "Drawer.pulseMs phải trong khoảng 1..500, nhận $pulseMs" }
+        }
+    }
+
+    /** Còi báo máy in bếp có phiếu mới. */
+    data class Beep(val times: Int = 1, val durationMs: Int = 100) : Element {
+        init {
+            require(times in 1..9) { "Beep.times phải trong khoảng 1..9, nhận $times" }
+            require(durationMs in 100..900) { "Beep.durationMs phải trong khoảng 100..900 (bội số 100), nhận $durationMs" }
+        }
+    }
 }
 
 enum class QrErrorCorrection(val code: Int) { L(48), M(49), Q(50), H(51) }
+
+/**
+ * Loại mã vạch 1D hỗ trợ (REQ-010). [oldStyleSymbol] khác null -> dùng lệnh
+ * ESC/POS cũ `GS k m d1..dk NUL`; null -> dùng lệnh mới `GS k m n d1..dn`
+ * (chỉ CODE128 cần, vì phải mang tiền tố code-set `{A/{B/{C` trong data).
+ */
+enum class BarcodeType(internal val oldStyleSymbol: Int?, internal val newStyleSymbol: Int) {
+    UPCA(oldStyleSymbol = 0, newStyleSymbol = 65),
+    EAN13(oldStyleSymbol = 2, newStyleSymbol = 67),
+    EAN8(oldStyleSymbol = 3, newStyleSymbol = 68),
+    CODE39(oldStyleSymbol = 4, newStyleSymbol = 69),
+    CODE128(oldStyleSymbol = null, newStyleSymbol = 73);
+
+    internal fun validate(data: String) {
+        fun requireDigits(minLen: Int, maxLen: Int, label: String) {
+            require(data.length in minLen..maxLen) { "$label cần $minLen hoặc $maxLen chữ số, nhận '$data' (${data.length})" }
+            require(data.all { it.isDigit() }) { "$label chỉ nhận chữ số, nhận '$data'" }
+        }
+        when (this) {
+            UPCA -> requireDigits(11, 12, "UPCA")
+            EAN13 -> requireDigits(12, 13, "EAN13")
+            EAN8 -> requireDigits(7, 8, "EAN8")
+            CODE39 -> require(data.isNotEmpty()) { "CODE39 không được rỗng" }
+            CODE128 -> require(data.isNotEmpty()) { "CODE128 không được rỗng" }
+        }
+    }
+}
 
 /** Ảnh 1-bit đã raster sẵn (REQ-002 tạo ra, REQ-001 chỉ cần biết hình dạng để đóng gói `GS v 0`). */
 data class MonoBitmap(val width: Int, val height: Int, val bits: ByteArray) {
