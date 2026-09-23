@@ -42,7 +42,7 @@ class LanPrinterTransportTest {
 
     @Test
     fun `ket noi va ghi thanh cong toi server that`() = runBlocking {
-        val selectorManager = SelectorManager(Dispatchers.IO)
+        val selectorManager = SelectorManager(Dispatchers.Default)
         val server = aSocket(selectorManager).tcp().bind("127.0.0.1", 0)
         val port = (server.localAddress as InetSocketAddress).port
 
@@ -67,7 +67,7 @@ class LanPrinterTransportTest {
     fun `khong co server lang nghe tra HOST_UNREACHABLE`() = runBlocking {
         // Bind rồi đóng ngay -- cổng chắc chắn không ai lắng nghe, hệ điều hành
         // trả ECONNREFUSED gần như tức thì (không phải treo chờ timeout).
-        val probeManager = SelectorManager(Dispatchers.IO)
+        val probeManager = SelectorManager(Dispatchers.Default)
         val probe = aSocket(probeManager).tcp().bind("127.0.0.1", 0)
         val freePort = (probe.localAddress as InetSocketAddress).port
         probe.close()
@@ -80,7 +80,7 @@ class LanPrinterTransportTest {
 
     @Test
     fun `mat ket noi khi dang ghi tra DISCONNECTED`() = runBlocking {
-        val selectorManager = SelectorManager(Dispatchers.IO)
+        val selectorManager = SelectorManager(Dispatchers.Default)
         val server = aSocket(selectorManager).tcp().bind("127.0.0.1", 0)
         val port = (server.localAddress as InetSocketAddress).port
 

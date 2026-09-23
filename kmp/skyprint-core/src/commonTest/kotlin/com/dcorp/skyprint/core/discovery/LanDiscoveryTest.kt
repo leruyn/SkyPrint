@@ -5,6 +5,8 @@ import io.ktor.network.sockets.InetSocketAddress
 import io.ktor.network.sockets.aSocket
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -20,7 +22,7 @@ import kotlin.test.assertTrue
 class LanProbeTest {
     @Test
     fun `probe tra true khi co server lang nghe`() = runBlocking {
-        val selectorManager = SelectorManager(Dispatchers.IO)
+        val selectorManager = SelectorManager(Dispatchers.Default)
         val server = aSocket(selectorManager).tcp().bind("127.0.0.1", 0)
         val port = (server.localAddress as InetSocketAddress).port
 
@@ -32,7 +34,7 @@ class LanProbeTest {
 
     @Test
     fun `probe tra false khi khong co ai lang nghe`() = runBlocking {
-        val probeManager = SelectorManager(Dispatchers.IO)
+        val probeManager = SelectorManager(Dispatchers.Default)
         val closedServer = aSocket(probeManager).tcp().bind("127.0.0.1", 0)
         val freePort = (closedServer.localAddress as InetSocketAddress).port
         closedServer.close()
@@ -58,10 +60,11 @@ class SubnetScannerTest {
     @Test
     fun `moi host trong danh sach deu duoc probe dung 1 lan`() = runBlocking {
         val calls = mutableListOf<String>()
+        val callsMutex = Mutex()
         val hosts = (1..50).map { "192.168.1.$it" }
 
         SubnetScanner.scan(hosts, port = 9100, timeoutMs = 50, concurrency = 8) { host, _, _ ->
-            synchronized(calls) { calls += host }
+            callsMutex.withLock { calls += host }
             false
         }
 

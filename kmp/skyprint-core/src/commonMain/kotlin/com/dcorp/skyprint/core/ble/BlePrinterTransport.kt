@@ -73,7 +73,7 @@ class BlePrinterTransport(private val config: BleConfig = BleConfig()) : Printer
     }
 
     private suspend fun connect(printer: PrinterInfo): Peripheral {
-        val peripheral = Peripheral(printer.address.toIdentifier())
+        val peripheral = createBlePeripheral(printer.address.toIdentifier())
         try {
             withTimeout(config.connectTimeoutMs) { peripheral.connect() }
         } catch (e: TimeoutCancellationException) {

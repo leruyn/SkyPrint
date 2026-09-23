@@ -1,12 +1,27 @@
 {
-  "last_updated": "2026-09-23T07:16:28.666Z",
+  "last_updated": "2026-09-23T08:19:24.471Z",
   "cwd": "/Users/leruyn/Project/Dcorp/skyprint/kmp",
   "branch": "main",
-  "git_status": "M ../.claude/session-sync.json\n M build.gradle.kts\n M settings.gradle.kts\n?? printtest/",
-  "recent_commits": "cf6c04c feat(kmp): REQ-004 USB transport (Android) qua Robolectric thật\n1e1c1f1 build(kmp): chuyển sang com.android.kotlin.multiplatform.library\n10118d2 feat(kmp): REQ-002 AndroidTextRasterizer + androidTarget/Robolectric setup\nbfe203a feat(kmp): REQ-002 (một phần) RasterPacker + EscPosEncoder RASTER wiring\n3687958 feat(kmp): REQ-008 PrintQueue + PrinterTransport contract\ndb8ef1a feat(kmp): REQ-009 template engine (skyprint-template)\n93aed9a feat(kmp): REQ-010 lệnh ESC/POS nghiệp vụ POS + PrinterCapabilities\n3d992bf docs: chốt hướng SDK nội bộ dùng nhiều dự án Dcorp",
+  "git_status": "M .claude/session-sync.json\n M build.gradle.kts\n M skyprint-core/build.gradle.kts\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/ble/BlePrinterTransport.kt\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/discovery/LanProbe.kt\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/discovery/SubnetScanner.kt\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/lan/LanPrinterTransport.kt\n M skyprint-core/src/commonTest/kotlin/com/dcorp/skyprint/core/discovery/LanDiscoveryTest.kt\n M skyprint-core/src/commonTest/kotlin/com/dcorp/skyprint/core/lan/LanPrinterTransportTest.kt\n?? skyprint-core/src/androidMain/kotlin/com/dcorp/skyprint/core/ble/\n?? skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/ble/PlatformBle.kt\n?? skyprint-core/src/iosMain/\n?? skyprint-core/src/jvmMain/",
+  "recent_commits": "c939dcf feat(kmp): REQ-003 discovery -- gộp tìm máy in cả 4 transport\n37333dc feat(kmp): REQ-006 Bluetooth Classic (SPP) transport\n0ef081d feat(kmp): REQ-007 BLE transport (Kable)\nc768c12 feat(kmp): REQ-005 LAN TCP transport (ktor-network)\n2a0606e test(kmp): xác minh REQ-004 USB trên thiết bị thật (ACE3)\ncf6c04c feat(kmp): REQ-004 USB transport (Android) qua Robolectric thật\n1e1c1f1 build(kmp): chuyển sang com.android.kotlin.multiplatform.library\n10118d2 feat(kmp): REQ-002 AndroidTextRasterizer + androidTarget/Robolectric setup",
   "session_id": "ad1e2478-cdda-42ef-bc30-5a3a9dec5d66",
   "transcript_path": "/Users/leruyn/.claude/projects/-Users-leruyn-Project-Dcorp/ad1e2478-cdda-42ef-bc30-5a3a9dec5d66.jsonl",
   "history": [
+    {
+      "at": "2026-09-23T08:19:24.471Z",
+      "branch": "main",
+      "git_status": "M .claude/session-sync.json\n M build.gradle.kts\n M skyprint-core/build.gradle.kts\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/ble/BlePrinterTransport.kt\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/discovery/LanProbe.kt\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/discovery/SubnetScanner.kt\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/lan/LanPrinterTransport.kt\n M skyprint-core/src/commonTest/kotlin/com/dcorp/skyprint/core/discovery/LanDiscoveryTest.kt\n M skyprint-core/src/commonTest/kotlin/com/dcorp/skyprint/core/lan/LanPrinterTransportTest.kt\n?? skyprint-core/src/androidMain/kotlin/com/dcorp/skyprint/core/ble/\n?? skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/ble/PlatformBle.kt\n?? skyprint-core/src/iosMain/\n?? skyprint-core/src/jvmMain/"
+    },
+    {
+      "at": "2026-09-23T08:11:29.816Z",
+      "branch": "main",
+      "git_status": "M .claude/session-sync.json\n M build.gradle.kts\n M skyprint-core/build.gradle.kts\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/discovery/LanProbe.kt\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/discovery/SubnetScanner.kt\n M skyprint-core/src/commonMain/kotlin/com/dcorp/skyprint/core/lan/LanPrinterTransport.kt"
+    },
+    {
+      "at": "2026-09-23T07:53:22.913Z",
+      "branch": "main",
+      "git_status": ""
+    },
     {
       "at": "2026-09-23T07:16:28.666Z",
       "branch": "main",

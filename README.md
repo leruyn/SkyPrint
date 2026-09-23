@@ -35,10 +35,10 @@ import com.dcorp.skyprint.core.model.*
 val doc = ReceiptDocument(
     paper = PaperWidth.MM80,
     elements = listOf(
-        Element.Text("SKYPOS", TextStyle(align = Align.CENTER, bold = true, size = 2)),
+        Element.Text("SKYPOS", TextStyle(align = Align.CENTER, bold = true, width = 2, height = 2)),
         Element.Divider(),
         Element.Row(listOf(Column("Phở bò", weight = 6), Column("50.000", weight = 3, align = Align.RIGHT))),
-        Element.Cut,
+        Element.Cut(),
     ),
 )
 val bytes: ByteArray = EscPosEncoder.encode(doc, TextMode.ASCII)

@@ -18,12 +18,17 @@ object SubnetScanner {
         port: Int,
         timeoutMs: Long,
         concurrency: Int = 32,
-        probe: suspend (host: String, port: Int, timeoutMs: Long) -> Boolean = LanProbe::probe,
+        // null thay vì gán trực tiếp `LanProbe::probe` / lambda gọi suspend --
+        // cả 2 dạng default value đều trigger crash JVM IR backend của Kotlin
+        // 2.4.10 (AddContinuationLowering: "has no continuation"). Gán lambda
+        // thật trong thân hàm để né khỏi signature.
+        probe: (suspend (host: String, port: Int, timeoutMs: Long) -> Boolean)? = null,
     ): List<String> = coroutineScope {
         if (hosts.isEmpty()) return@coroutineScope emptyList()
+        val doProbe = probe ?: { host, port, timeoutMs -> LanProbe.probe(host, port, timeoutMs) }
         val semaphore = Semaphore(concurrency.coerceAtLeast(1))
         hosts
-            .map { host -> async { semaphore.withPermit { if (probe(host, port, timeoutMs)) host else null } } }
+            .map { host -> async { semaphore.withPermit { if (doProbe(host, port, timeoutMs)) host else null } } }
             .awaitAll()
             .filterNotNull()
     }

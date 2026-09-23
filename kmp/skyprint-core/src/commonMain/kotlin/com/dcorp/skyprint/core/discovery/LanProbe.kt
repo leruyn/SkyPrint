@@ -15,7 +15,7 @@ import kotlinx.coroutines.withTimeout
  */
 object LanProbe {
     suspend fun probe(host: String, port: Int = 9100, timeoutMs: Long = 3000): Boolean {
-        val selectorManager = SelectorManager(Dispatchers.IO)
+        val selectorManager = SelectorManager(Dispatchers.Default)
         return try {
             withTimeout(timeoutMs) {
                 val socket = aSocket(selectorManager).tcp().connect(host, port)

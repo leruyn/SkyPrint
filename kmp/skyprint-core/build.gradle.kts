@@ -3,6 +3,10 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     kotlin("multiplatform")
     id("com.android.kotlin.multiplatform.library")
+    // publishToMavenLocal -- SkyPos-Flutter (Gradle/AGP khác hẳn, xem
+    // apps/master/android) không dùng chung được includeBuild() như
+    // SkytabOffline; consume qua mavenLocal() thay vì gộp build graph.
+    `maven-publish`
 }
 
 // Plugin chính thức Google khuyến nghị cho Android target trong module KMP
@@ -12,6 +16,8 @@ plugins {
 // androidUnitTest ở plugin cũ) -- KHÔNG bật mặc định, phải khai withHostTest.
 kotlin {
     jvm()
+    iosArm64()
+    iosSimulatorArm64()
 
     android {
         namespace = "com.dcorp.skyprint.core"

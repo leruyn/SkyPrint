@@ -35,7 +35,7 @@ class LanPrinterTransport(private val config: LanConfig = LanConfig()) : Printer
 
     override suspend fun open(printer: PrinterInfo): PrinterConnection {
         val (host, port) = parseAddress(printer.address, config.defaultPort)
-        val selectorManager = SelectorManager(Dispatchers.IO)
+        val selectorManager = SelectorManager(Dispatchers.Default)
 
         val socket = try {
             withTimeout(config.connectTimeoutMs) {
