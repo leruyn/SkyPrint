@@ -365,6 +365,22 @@
       "type": "DESIGN",
       "updated_at": "2026-09-23T03:59:31Z"
     },
+    "DESIGN-011": {
+      "created_at": "2026-09-23T09:35:51Z",
+      "depends_on": [
+        "REQ-011"
+      ],
+      "module": "kmp",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-011/design.md",
+      "status": "pending",
+      "title": "DESIGN: Publish workflow + migration 2 consumer sang GitLab Package Registry",
+      "traces_to": [
+        "TEST-SIT-011"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-23T09:36:08Z"
+    },
     "REQ-001": {
       "created_at": "2026-09-23T03:05:55Z",
       "depends_on": [],
@@ -505,6 +521,20 @@
       "type": "REQ",
       "updated_at": "2026-09-23T03:59:31Z"
     },
+    "REQ-011": {
+      "created_at": "2026-09-23T09:35:31Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-011/req.md",
+      "status": "pending",
+      "title": "Đồng bộ skyprint lên Git + publish SDK (Maven Package Registry)",
+      "traces_to": [
+        "TEST-UAT-011"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-23T09:36:07Z"
+    },
     "TEST-SIT-001": {
       "created_at": "2026-09-23T03:08:57Z",
       "depends_on": [],
@@ -614,6 +644,17 @@
       "traces_to": [],
       "type": "TEST-SIT",
       "updated_at": "2026-09-23T03:59:25Z"
+    },
+    "TEST-SIT-011": {
+      "created_at": "2026-09-23T09:36:08Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pending",
+      "title": "TEST-SIT-011: publish thật lên GitLab Package Registry, 2 consumer resolve được",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-23T09:36:08Z"
     },
     "TEST-UAT-001": {
       "created_at": "2026-09-23T03:08:57Z",
@@ -725,6 +766,17 @@
       "traces_to": [],
       "type": "TEST-UAT",
       "updated_at": "2026-09-23T03:59:25Z"
+    },
+    "TEST-UAT-011": {
+      "created_at": "2026-09-23T09:36:07Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pending",
+      "title": "TEST-UAT-011: clone sạch + publish + build lại từ máy khác chạy được",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-23T09:36:07Z"
     },
     "TEST-UNIT-001": {
       "created_at": "2026-09-23T04:11:21Z",
@@ -932,5 +984,5 @@
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T07:52:22Z"
+  "updated_at": "2026-09-23T09:36:08Z"
 }
