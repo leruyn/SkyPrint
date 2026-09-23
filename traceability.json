@@ -87,6 +87,23 @@
       "type": "CODE",
       "updated_at": "2026-09-23T06:18:55Z"
     },
+    "CODE-006": {
+      "code_ref": "kmp/skyprint-core/src/androidMain/kotlin/com/dcorp/skyprint/core/raster/AndroidTextRasterizer.kt",
+      "created_at": "2026-09-23T06:38:14Z",
+      "depends_on": [
+        "DESIGN-002"
+      ],
+      "module": "kmp",
+      "note": "Đã thêm androidTarget() + com.android.library (AGP ghim 8.7.3 -- AGP 9+ cấm tổ hợp KMP+android.library cũ) + androidUnitTest chạy Robolectric 4.14.1. CODE compile và chạy được, NHƯNG pipeline Skia native của Robolectric không kích hoạt trong tổ hợp này (measureText/drawText/fontMetrics đều trả stub -- đã xác minh, đã thử sdk=[34] và manifest=Config.NONE, không đổi kết quả; nghi do KMP androidTarget không được Robolectric nhận diện đúng để tự tải android-all-instrumented đúng SDK, chỉ thấy SDK cũ 14/15/21 trong cache). Test hiện tại CHỈ kiểm không throw + kích thước hợp lệ, CHƯA kiểm nội dung glyph/canh lề/độ cao chữ thật -- cần xác minh trên thiết bị/emulator Android thật hoặc đổi cấu hình Robolectric, việc riêng theo dõi tiếp, không chặn REQ-002.",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: AndroidTextRasterizer (Canvas/TextPaint/Bitmap) (KMP androidMain)",
+      "traces_to": [
+        "TEST-UNIT-008"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-23T06:38:15Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -698,8 +715,20 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-23T06:18:55Z"
+    },
+    "TEST-UNIT-008": {
+      "created_at": "2026-09-23T06:38:14Z",
+      "depends_on": [],
+      "module": "kmp",
+      "owner": "",
+      "status": "pass",
+      "test_ref": "com.dcorp.skyprint.core.raster.AndroidTextRasterizerTest",
+      "title": "Unit: AndroidTextRasterizer qua Robolectric (REQ-002, giới hạn: chỉ kiểm bất biến, chưa kiểm pixel thật)",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-23T06:38:14Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T06:18:55Z"
+  "updated_at": "2026-09-23T06:38:15Z"
 }

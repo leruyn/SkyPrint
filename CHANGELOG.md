@@ -57,6 +57,22 @@ khi nâng version — xem chính sách tương thích ngược ở
   (CoreText), Flutter (dart:ui) -- việc riêng, theo dõi tiếp.
   [CODE-005](docs/wbs.md)
 
+- **REQ-002 (thêm)** — `AndroidTextRasterizer` (KMP `androidMain`, dùng
+  `Canvas`/`TextPaint`/`Bitmap` thật): vẽ mọi dòng bằng 1 font đơn cách
+  (monospace) để giữ thẳng cột của `Row`/`Divider` (đã canh sẵn bằng
+  khoảng trắng ở `LayoutEngine`), hỗ trợ bold/underline/inverse/width/
+  height scale theo `TextStyle`. Thêm `androidTarget()` +
+  `com.android.library` (ghim AGP 8.7.3 -- AGP 9+ cấm tổ hợp này với KMP,
+  xem `kmp/build.gradle.kts`) + Robolectric 4.14.1 cho `androidUnitTest`.
+  **Giới hạn đã xác nhận, không phải bỏ sót:** trong tổ hợp cụ thể của
+  repo này, pipeline vẽ Skia native của Robolectric không kích hoạt được
+  (`measureText`/`drawText`/`fontMetrics` đều trả stub, đã xác minh bằng
+  test tay, đã thử `sdk=[34]` và `manifest=Config.NONE` không đổi kết
+  quả) -- test hiện tại chỉ kiểm không crash + kích thước ảnh hợp lệ,
+  CHƯA kiểm được nội dung glyph/canh lề/độ cao chữ thật. Cần xác minh
+  trên thiết bị/emulator Android thật hoặc đổi cấu hình Robolectric
+  trước khi tin tưởng hoàn toàn bản raster Android. [CODE-006](docs/wbs.md)
+
 ### Changed
 
 - **Vỡ tương thích (chưa publish, chấp nhận được):** `TextStyle.size: Int`
