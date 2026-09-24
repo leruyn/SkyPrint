@@ -6,3 +6,7 @@ kmp/.kotlin/
 kmp/local.properties
 __pycache__/
 *.pyc
+flutter/**/.dart_tool/
+flutter/**/.gradle/
+flutter/**/build/
+flutter/**/.flutter-plugins*

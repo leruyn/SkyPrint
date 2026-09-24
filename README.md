@@ -46,7 +46,19 @@ val bytes: ByteArray = EscPosEncoder.encode(doc, TextMode.ASCII)
 
 ### Flutter
 
-Chưa có (chờ CODE tương ứng ở phía Dart — xem docs/wbs.md).
+Plugin Android-only nằm ở [flutter/skyprint_flutter](flutter/skyprint_flutter) (MethodChannel bọc
+`skyprint-core-android`, lấy từ Maven registry). Hiện mới có `listUsbCandidates`/`printUsbTest`
+(test tay); method in hoá đơn thật xem `docs/features/REQ-011` và
+`SkyPos-Flutter/docs/features/REQ-001`. Dùng trong app Flutter:
+
+```yaml
+dependencies:
+  skyprint_flutter:
+    git:
+      url: <git-url-skyprint>
+      path: flutter/skyprint_flutter
+```
+(Trước khi có remote git: `path: <đường dẫn tới skyprint>/flutter/skyprint_flutter`.)
 
 ## Đóng góp / báo lỗi
 

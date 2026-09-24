@@ -9,6 +9,11 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ### Added
 
+- **REQ-012 (giai đoạn 1)** — Plugin Flutter `flutter/skyprint_flutter` (Android) phân phối qua
+  `git:` dependency + tag: AAR `skyprint-core-android` nhúng sẵn trong `android/repo/` (Maven-layout,
+  sinh bởi `scripts/release.sh`), app không cần khai registry/token Maven. Yêu cầu phía app: Kotlin
+  Gradle plugin >= 2.4.10, bỏ `kotlinOptions.jvmTarget`, compileSdk >= 36 (xem README plugin).
+  Giai đoạn 2 (iOS XCFramework/SPM) và 3 (React Native) chưa làm.
 - **REQ-011** — Đồng bộ skyprint lên Git + publish SDK (GitHub Packages Maven):
   cấu hình `publishing.repositories` trỏ tới GitHub Packages Maven repository của repo `SkyPrint`
   (`https://maven.pkg.github.com/leruyn/SkyPrint`), hỗ trợ `GITHUB_ACTOR` + `GITHUB_TOKEN` (CI)

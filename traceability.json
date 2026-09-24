@@ -197,6 +197,23 @@
       "type": "CODE",
       "updated_at": "2026-09-23T07:52:22Z"
     },
+    "CODE-012": {
+      "code_ref": "flutter/skyprint_flutter/android/build.gradle",
+      "created_at": "2026-09-24T02:42:07Z",
+      "depends_on": [
+        "DESIGN-012"
+      ],
+      "module": "shared",
+      "note": "REQ-012 giai đoạn 1. Cùng đợt: kmp/skyprint-core/build.gradle.kts (repo FlutterPluginRepo), scripts/release.sh, flutter/skyprint_flutter/README.md. Đã verify: app Flutter mới + SkyPos-Flutter master build được không cần Maven config.",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: FlutterPluginRepo (AAR nhúng) + plugin android/build.gradle + scripts/release.sh",
+      "traces_to": [
+        "TEST-UNIT-018"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-24T02:42:15Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -381,6 +398,23 @@
       "type": "DESIGN",
       "updated_at": "2026-09-23T10:23:24Z"
     },
+    "DESIGN-012": {
+      "created_at": "2026-09-24T02:31:40Z",
+      "depends_on": [
+        "DESIGN-011",
+        "REQ-012"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-012/design.md",
+      "status": "in_progress",
+      "title": "DESIGN: Nhúng AAR trong plugin Flutter, XCFramework/SPM, quy trình release 1 lệnh",
+      "traces_to": [
+        "TEST-SIT-012"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-24T02:42:07Z"
+    },
     "REQ-001": {
       "created_at": "2026-09-23T03:05:55Z",
       "depends_on": [],
@@ -535,6 +569,20 @@
       "type": "REQ",
       "updated_at": "2026-09-23T10:23:24Z"
     },
+    "REQ-012": {
+      "created_at": "2026-09-24T02:31:40Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-012/req.md",
+      "status": "in_progress",
+      "title": "Phân phối skyprint đa nền tảng theo cách import chuẩn (Maven, Flutter git+AAR nhúng, iOS SPM/XCFramework)",
+      "traces_to": [
+        "TEST-UAT-012"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-24T02:42:07Z"
+    },
     "TEST-SIT-001": {
       "created_at": "2026-09-23T03:08:57Z",
       "depends_on": [],
@@ -655,6 +703,17 @@
       "traces_to": [],
       "type": "TEST-SIT",
       "updated_at": "2026-09-23T10:23:24Z"
+    },
+    "TEST-SIT-012": {
+      "created_at": "2026-09-24T02:31:40Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "TEST-SIT-012: release script ra đủ artifact cùng version, repo plugin tự đủ",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-24T02:31:40Z"
     },
     "TEST-UAT-001": {
       "created_at": "2026-09-23T03:08:57Z",
@@ -777,6 +836,17 @@
       "traces_to": [],
       "type": "TEST-UAT",
       "updated_at": "2026-09-23T10:23:24Z"
+    },
+    "TEST-UAT-012": {
+      "created_at": "2026-09-24T02:31:40Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "TEST-UAT-012: app Flutter/iOS mới import chuẩn, build được trên máy sạch",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-24T02:31:40Z"
     },
     "TEST-UNIT-001": {
       "created_at": "2026-09-23T04:11:21Z",
@@ -981,8 +1051,19 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-23T07:52:22Z"
+    },
+    "TEST-UNIT-018": {
+      "created_at": "2026-09-24T02:42:15Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "TEST-UNIT-018: release.sh kiểm version lệch (kmp/pubspec/gradle) — chưa có test tự động, mới verify tay",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-24T02:42:15Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-23T10:23:24Z"
+  "updated_at": "2026-09-24T02:42:15Z"
 }

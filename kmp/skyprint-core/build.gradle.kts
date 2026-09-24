@@ -53,6 +53,12 @@ kotlin {
 
 publishing {
     repositories {
+        // REQ-012: Maven-layout repo nằm TRONG plugin Flutter, để app dùng
+        // `git:` dependency không phải khai registry/token Maven riêng.
+        maven {
+            name = "FlutterPluginRepo"
+            url = uri(rootProject.projectDir.resolve("../flutter/skyprint_flutter/android/repo"))
+        }
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/leruyn/SkyPrint")

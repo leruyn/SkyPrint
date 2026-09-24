@@ -1,0 +1,56 @@
+// Không tự pin version AGP/Kotlin ở đây -- dùng plugins{} để ăn theo version
+// đã khai ở apps/*/android/settings.gradle.kts (root của build này), tránh
+// lệch version như đã gặp giữa skyprint-core (Kotlin 2.4.10) và app cũ
+// (2.1.0).
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+group 'com.dcorp.skyprint_flutter'
+version '1.0'
+
+android {
+    namespace 'com.dcorp.skyprint_flutter'
+    compileSdk 36
+
+    defaultConfig {
+        minSdk 24
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+// kotlinOptions{jvmTarget=...} bị Kotlin 2.4.10 cấm hẳn -- compilerOptions DSL.
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
+    }
+}
+
+// REQ-012: AAR skyprint-core nhúng sẵn trong ./repo (Maven-layout) -- app dùng
+// plugin qua `git:` không phải khai registry/token Maven. Đăng ký cả cho
+// rootProject.allprojects vì :app resolve classpath xuyên project và KHÔNG kế
+// thừa `repositories` riêng của plugin (đã gặp thật ở REQ-011).
+def skyprintLocalRepo = uri("${projectDir}/repo")
+rootProject.allprojects {
+    repositories {
+        maven { url skyprintLocalRepo }
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url skyprintLocalRepo }
+}
+
+dependencies {
+    // Version phải khớp thư mục repo/com/dcorp/skyprint/skyprint-core-android/<version>
+    // -- scripts/release.sh tự ghi.
+    implementation 'com.dcorp.skyprint:skyprint-core-android:0.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
+}
