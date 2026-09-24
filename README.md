@@ -44,6 +44,31 @@ val doc = ReceiptDocument(
 val bytes: ByteArray = EscPosEncoder.encode(doc, TextMode.ASCII)
 ```
 
+### iOS (Swift, Swift Package Manager)
+
+XCFramework tĩnh `SkyprintCore` (iosArm64 + Simulator arm64) nằm trong repo (`ios/`), khai qua SPM bằng URL git + tag:
+
+```swift
+// Package.swift của app, hoặc Xcode: File > Add Package Dependencies...
+.package(url: "https://github.com/leruyn/SkyPrint.git", from: "0.1.1")
+// target: .product(name: "SkyprintCore", package: "SkyPrint")
+```
+
+```swift
+import SkyprintCore
+
+let doc = ReceiptDocument(paper: PaperWidth.mm80, elements: [
+    ElementText(text: "SKYPOS", style: TextStyle(align: Align.center, bold: true, width: 2, height: 2, inverse: false, underline: false)),
+    ElementCut(partial: true),
+])
+let bytes = EscPosEncoder.shared.encode(document: doc, mode: TextMode.ascii,
+                                        buzzerCommand: BuzzerCommand.escB, rasterizer: nil)
+```
+
+Lưu ý: iOS chỉ có transport LAN + BLE (không USB/Bluetooth Classic). Kotlin/Native không giữ default
+argument, phải truyền đủ tham số như trên. App dùng BLE cần khai `NSBluetoothAlwaysUsageDescription`.
+Tối thiểu iOS 15. Repo private: máy dev/CI cần quyền clone.
+
 ### Flutter
 
 Plugin Android-only nằm ở [flutter/skyprint_flutter](flutter/skyprint_flutter) (MethodChannel bọc

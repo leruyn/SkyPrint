@@ -22,6 +22,10 @@ G=$(grep -E "skyprint-core-android:" flutter/skyprint_flutter/android/build.grad
 (cd kmp && ./gradlew clean build)
 rm -rf flutter/skyprint_flutter/android/repo/com/dcorp/skyprint
 (cd kmp && ./gradlew :skyprint-core:publishAndroidPublicationToFlutterPluginRepoRepository)
+# iOS (REQ-012 gd2): XCFramework release -> ios/SkyprintCore.xcframework.zip (Package.swift trỏ path này)
+(cd kmp && ./gradlew :skyprint-core:assembleSkyprintCoreReleaseXCFramework)
+mkdir -p ios && rm -f ios/SkyprintCore.xcframework.zip
+(cd kmp/skyprint-core/build/XCFrameworks/release && ditto -c -k --sequesterRsrc --keepParent SkyprintCore.xcframework "$ROOT/ios/SkyprintCore.xcframework.zip")
 if [[ "${2:-}" == "--publish" ]]; then
   (cd kmp && ./gradlew :skyprint-core:publishAllPublicationsToGitHubPackagesRepository :skyprint-template:publishAllPublicationsToGitHubPackagesRepository)
 fi

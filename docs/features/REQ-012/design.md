@@ -81,34 +81,16 @@ skyprint_flutter:
     ref: v0.1.0
 ```
 
-## Giai đoạn 2 — iOS: XCFramework + SPM/CocoaPods
+## Giai đoạn 2 — iOS: XCFramework + SPM (ĐÃ LÀM, 2026-09-24)
 
-1. Trong `skyprint-core/build.gradle.kts`:
-   ```kotlin
-   import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-   val xcf = XCFramework("SkyprintCore")
-   listOf(iosArm64(), iosSimulatorArm64()).forEach { t ->
-       t.binaries.framework { baseName = "SkyprintCore"; isStatic = true; xcf.add(this) }
-   }
-   ```
-   (gộp vào block `kotlin {}` hiện có; đã có sẵn 2 target iOS — hiện mới ra `.klib`, chưa ra framework.) Lệnh: `./gradlew :skyprint-core:assembleSkyprintCoreXCFramework` → `kmp/skyprint-core/build/XCFrameworks/release/SkyprintCore.xcframework`.
-2. Cần `export`/api rõ ràng những type Swift cần gọi (EscPosEncoder, model, transport LAN/BLE). Kotlin/Native API sang Swift có quy ước tên riêng (object → `.shared`, suspend → async/completion handler) — cần 1 lượt viết wrapper Swift mỏng nếu API lộ ra khó dùng, đánh giá khi làm.
-3. Phân phối: zip XCFramework → đính kèm release (GitLab/GitHub release asset hoặc Generic Package), `Package.swift` ở gốc repo:
-   ```swift
-   // swift-tools-version:5.9
-   import PackageDescription
-   let package = Package(
-       name: "SkyprintCore",
-       platforms: [.iOS(.v15)],
-       products: [.library(name: "SkyprintCore", targets: ["SkyprintCore"])],
-       targets: [.binaryTarget(name: "SkyprintCore",
-                               url: "<release-asset-url>/SkyprintCore-X.Y.Z.xcframework.zip",
-                               checksum: "<swift package compute-checksum>")]
-   )
-   ```
-   Dev khai package bằng URL git + tag. Khi dev nội bộ có thể đổi tạm sang `path:` cục bộ.
-4. Podspec (tuỳ chọn): `vendored_frameworks = 'SkyprintCore.xcframework'`, dùng chung cho phía iOS của plugin Flutter (`flutter/skyprint_flutter/ios`, hiện chưa có — pubspec chỉ khai `platforms: android`).
-5. Rủi ro: BLE (Kable) cần link CoreBluetooth + khai `NSBluetoothAlwaysUsageDescription` ở app; framework tĩnh + Kable/ktor phải kiểm link được từ Xcode sạch. Chưa kiểm chứng.
+- `kmp/skyprint-core/build.gradle.kts`: `XCFramework("SkyprintCore")`, framework tĩnh cho `iosArm64` + `iosSimulatorArm64`. Lệnh: `./gradlew :skyprint-core:assembleSkyprintCoreXCFramework` (release: `...ReleaseXCFramework`).
+- **Phân phối đổi so với thiết kế ban đầu**: KHÔNG dùng `binaryTarget(url:checksum:)` vì repo private (SPM không xác thực được tải release asset). Thay vào đó zip XCFramework (~4 MB) **commit vào repo** (`ios/SkyprintCore.xcframework.zip`) và `Package.swift` ở gốc dùng `binaryTarget(path:)` — cùng triết lý nhúng AAR ở giai đoạn 1: dev chỉ khai URL git + tag.
+- `scripts/release.sh` tự build + zip. Mỗi release thêm ~4 MB lịch sử git (chấp nhận; nếu phình, chuyển Git LFS).
+- Test hồi quy: `ios/verify` (Swift package tiêu thụ `SkyprintCore`, gọi `EscPosEncoder` thật) — `xcodebuild test` trên iOS Simulator PASS; build slice thiết bị `generic/platform=iOS` PASS.
+- Lưu ý API: Kotlin/Native không giữ default argument (Swift phải truyền đủ tham số); enum/`object` truy cập qua `.shared`/thuộc tính class. Wrapper Swift mỏng chưa cần ở mức hiện tại.
+- Podspec/CocoaPods và phía iOS của plugin Flutter: CHƯA làm (không có method iOS nào để bọc tới khi REQ-001 xong).
+- Tag `v0.1.0` đã push TRƯỚC khi có `Package.swift` → SPM chỉ dùng được từ tag **>= 0.1.1**.
+- Chưa kiểm chứng: link BLE (CoreBluetooth) + Info.plist trong app iOS thật, LAN/BLE gửi thật tới máy in.
 
 ## Giai đoạn 3 — React Native
 

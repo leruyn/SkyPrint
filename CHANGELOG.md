@@ -5,6 +5,15 @@
 khi nâng version — xem chính sách tương thích ngược ở
 [docs/architecture.md](docs/architecture.md#phiên-bản--publish).
 
+## [Unreleased]
+
+### Added
+
+- **REQ-012 (giai đoạn 2)** — iOS Swift: XCFramework tĩnh `SkyprintCore` (`assembleSkyprintCoreXCFramework`),
+  `Package.swift` ở gốc repo (`binaryTarget(path: "ios/SkyprintCore.xcframework.zip")`, zip 4 MB commit trong
+  repo, `scripts/release.sh` tự sinh). Đã verify: Swift package mới import `SkyprintCore`, `EscPosEncoder`
+  chạy trên iOS Simulator (test pass), build được slice thiết bị.
+
 ## [0.1.0] - 2026-09-23
 
 ### Added

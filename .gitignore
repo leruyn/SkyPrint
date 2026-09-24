@@ -10,3 +10,7 @@ flutter/**/.dart_tool/
 flutter/**/.gradle/
 flutter/**/build/
 flutter/**/.flutter-plugins*
+ios/verify/.build/
+ios/verify/.swiftpm/
+.swiftpm/
+.build/
