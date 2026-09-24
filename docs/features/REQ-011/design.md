@@ -1,5 +1,7 @@
 # DESIGN-011 — Đồng bộ skyprint lên Git + publish SDK (DESIGN)
 
+> **Ghi chú thực tế (2026-09-24):** registry đã chọn là **GitHub Packages** (`https://maven.pkg.github.com/leruyn/SkyPrint`, repo `leruyn/SkyPrint`), không phải GitLab như mô tả bên dưới; CI nằm ở `.github/workflows/publish.yml`. Đọc "GitLab" bên dưới là "GitHub". Đọc package cần token `read:packages`.
+
 > depends_on REQ-011.
 
 ## Kiến trúc publish
