@@ -1,0 +1,290 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.dcorp.skyprint",
+    "module": "skyprint-core",
+    "version": "0.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.3.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "metadataApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.4.10"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlinx",
+          "module": "kotlinx-coroutines-core",
+          "version": {
+            "requires": "1.10.2"
+          }
+        },
+        {
+          "group": "io.ktor",
+          "module": "ktor-network",
+          "version": {
+            "requires": "3.4.1"
+          }
+        },
+        {
+          "group": "com.juul.kable",
+          "module": "kable-core",
+          "version": {
+            "requires": "0.45.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "skyprint-core-metadata-0.1.0.jar",
+          "url": "skyprint-core-0.1.0.jar",
+          "size": 23474,
+          "sha512": "272afc0d3d2a7728e1d230add63884ef89ab62796e7bc5f32dc7f8307490c44f297a652c2221893d7feec8a65ab2f4b5d87647145c132755b4e4a81e27857987",
+          "sha256": "0a6158b2d78cf7c28be79979f5a4d2ed3ddc742ba890e4a77339bacd9799cad4",
+          "sha1": "08058734d8dde9b4d8c745f5a55a01f5bcec04e1",
+          "md5": "fa8f5753e09c4c3c33f6d31962c9bdd5"
+        }
+      ]
+    },
+    {
+      "name": "metadataSourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.platform.type": "common"
+      },
+      "files": [
+        {
+          "name": "skyprint-core-kotlin-0.1.0-sources.jar",
+          "url": "skyprint-core-0.1.0-sources.jar",
+          "size": 36513,
+          "sha512": "5fdb48e934a376483d0b83919ae3d6baf20d481427f2b71c509588f909aea8be739ffa95994ed24fa3e1255bf6179c8140132e25bb86a24490035c1de486f74b",
+          "sha256": "56d45fecf9f20a8d766d7a7124c1e9c15e8b77ff0d1b7b5f3ae051328615a054",
+          "sha1": "c31022a15ffb8835c0fcd08c50e2ba9b8b81be8a",
+          "md5": "9b639824d77907b4865f8cec6c1250d1"
+        }
+      ]
+    },
+    {
+      "name": "androidApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "android",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-android/0.1.0/skyprint-core-android-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-android",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "androidRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "android",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-android/0.1.0/skyprint-core-android-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-android",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "androidSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "android",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "androidJvm"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-android/0.1.0/skyprint-core-android-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-android",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "iosArm64ApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-iosarm64/0.1.0/skyprint-core-iosarm64-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-iosarm64",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "iosArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-iosarm64/0.1.0/skyprint-core-iosarm64-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-iosarm64",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "iosArm64MetadataElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-iosarm64/0.1.0/skyprint-core-iosarm64-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-iosarm64",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64ApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-api",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-iossimulatorarm64/0.1.0/skyprint-core-iossimulatorarm64-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-iossimulatorarm64",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64SourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-runtime",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-iossimulatorarm64/0.1.0/skyprint-core-iossimulatorarm64-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-iossimulatorarm64",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "iosSimulatorArm64MetadataElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "non-jvm",
+        "org.gradle.usage": "kotlin-metadata",
+        "org.jetbrains.kotlin.native.target": "ios_simulator_arm64",
+        "org.jetbrains.kotlin.platform.type": "native"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-iossimulatorarm64/0.1.0/skyprint-core-iossimulatorarm64-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-iossimulatorarm64",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "jvmApiElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-jvm/0.1.0/skyprint-core-jvm-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-jvm",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "jvmRuntimeElements-published",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-jvm/0.1.0/skyprint-core-jvm-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-jvm",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "name": "jvmSourcesElements-published",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "available-at": {
+        "url": "../../skyprint-core-jvm/0.1.0/skyprint-core-jvm-0.1.0.module",
+        "group": "com.dcorp.skyprint",
+        "module": "skyprint-core-jvm",
+        "version": "0.1.0"
+      }
+    }
+  ]
+}

@@ -83,6 +83,8 @@ skyprint_flutter:
 
 ## Giai đoạn 2 — iOS: XCFramework + SPM (ĐÃ LÀM, 2026-09-24)
 
+> **Cập nhật (REQ-013):** framework đổi tên `SkyprintCore` → `Skyprint` và chuyển cấu hình sang module `skyprint-template` (gộp core + template, `export(core)`); zip là `ios/Skyprint.xcframework.zip`, sản phẩm SPM `Skyprint`. Các đoạn dưới đây giữ nguyên tên gốc lúc làm giai đoạn 2.
+
 - `kmp/skyprint-core/build.gradle.kts`: `XCFramework("SkyprintCore")`, framework tĩnh cho `iosArm64` + `iosSimulatorArm64`. Lệnh: `./gradlew :skyprint-core:assembleSkyprintCoreXCFramework` (release: `...ReleaseXCFramework`).
 - **Phân phối đổi so với thiết kế ban đầu**: KHÔNG dùng `binaryTarget(url:checksum:)` vì repo private (SPM không xác thực được tải release asset). Thay vào đó zip XCFramework (~4 MB) **commit vào repo** (`ios/SkyprintCore.xcframework.zip`) và `Package.swift` ở gốc dùng `binaryTarget(path:)` — cùng triết lý nhúng AAR ở giai đoạn 1: dev chỉ khai URL git + tag.
 - `scripts/release.sh` tự build + zip. Mỗi release thêm ~4 MB lịch sử git (chấp nhận; nếu phình, chuyển Git LFS).

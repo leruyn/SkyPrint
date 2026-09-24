@@ -10,22 +10,23 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"; cd "$ROOT"
 
 sed -i '' -E "s/^(    version = )\"[^\"]+\"/\1\"$VER\"/" kmp/build.gradle.kts
 sed -i '' -E "s/^version: .*/version: $VER/" flutter/skyprint_flutter/pubspec.yaml
-sed -i '' -E "s#(skyprint-core-android:)[0-9A-Za-z.\-]+'#\1$VER'#" flutter/skyprint_flutter/android/build.gradle
+sed -i '' -E "s#(skyprint-(core|template)-android:)[0-9A-Za-z.\-]+'#\1$VER'#" flutter/skyprint_flutter/android/build.gradle
 sed -i '' -E "s#(ref: v)[0-9.]+#\1$VER#" flutter/skyprint_flutter/README.md
 
 # kiểm 3 nơi khớp version
 K=$(grep -E '^\s+version = ' kmp/build.gradle.kts | sed -E 's/.*"([^"]+)".*/\1/')
 P=$(grep -E '^version:' flutter/skyprint_flutter/pubspec.yaml | awk '{print $2}')
 G=$(grep -E "skyprint-core-android:" flutter/skyprint_flutter/android/build.gradle | sed -E "s/.*android:([^']+)'.*/\1/")
-[[ "$K" == "$VER" && "$P" == "$VER" && "$G" == "$VER" ]] || { echo "version lệch: kmp=$K pubspec=$P gradle=$G"; exit 1; }
+T=$(grep -E "skyprint-template-android:" flutter/skyprint_flutter/android/build.gradle | sed -E "s/.*android:([^']+)'.*/\1/")
+[[ "$K" == "$VER" && "$P" == "$VER" && "$G" == "$VER" && "$T" == "$VER" ]] || { echo "version lệch: kmp=$K pubspec=$P core=$G template=$T"; exit 1; }
 
 (cd kmp && ./gradlew clean build)
 rm -rf flutter/skyprint_flutter/android/repo/com/dcorp/skyprint
-(cd kmp && ./gradlew :skyprint-core:publishAndroidPublicationToFlutterPluginRepoRepository)
-# iOS (REQ-012 gd2): XCFramework release -> ios/SkyprintCore.xcframework.zip (Package.swift trỏ path này)
-(cd kmp && ./gradlew :skyprint-core:assembleSkyprintCoreReleaseXCFramework)
-mkdir -p ios && rm -f ios/SkyprintCore.xcframework.zip
-(cd kmp/skyprint-core/build/XCFrameworks/release && ditto -c -k --sequesterRsrc --keepParent SkyprintCore.xcframework "$ROOT/ios/SkyprintCore.xcframework.zip")
+(cd kmp && ./gradlew :skyprint-core:publishKotlinMultiplatformPublicationToFlutterPluginRepoRepository :skyprint-core:publishAndroidPublicationToFlutterPluginRepoRepository :skyprint-template:publishAndroidPublicationToFlutterPluginRepoRepository)
+# iOS (REQ-012 gd2 + REQ-013): XCFramework tổng Skyprint (core + template) -> ios/Skyprint.xcframework.zip (Package.swift trỏ path này)
+(cd kmp && ./gradlew :skyprint-template:assembleSkyprintReleaseXCFramework)
+mkdir -p ios && rm -f ios/Skyprint.xcframework.zip
+(cd kmp/skyprint-template/build/XCFrameworks/release && ditto -c -k --sequesterRsrc --keepParent Skyprint.xcframework "$ROOT/ios/Skyprint.xcframework.zip")
 if [[ "${2:-}" == "--publish" ]]; then
   (cd kmp && ./gradlew :skyprint-core:publishAllPublicationsToGitHubPackagesRepository :skyprint-template:publishAllPublicationsToGitHubPackagesRepository)
 fi

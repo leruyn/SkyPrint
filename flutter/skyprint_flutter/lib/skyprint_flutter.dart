@@ -35,4 +35,20 @@ class SkyprintFlutter {
     });
     return result ?? 'OK';
   }
+
+  /// In hoá đơn từ mẫu JSON + dữ liệu JSON (skyprint-template). Trả về danh sách cảnh báo render
+  /// (rỗng nếu mẫu khớp dữ liệu); ném [PlatformException] nếu mẫu sai/in lỗi.
+  static Future<List<String>> printOrderReceipt({
+    required SkyprintUsbCandidate printer,
+    required String templateJson,
+    required String dataJson,
+  }) async {
+    final result = await _channel.invokeMethod<List<Object?>>('printOrderReceipt', {
+      'address': printer.address,
+      'name': printer.name,
+      'templateJson': templateJson,
+      'dataJson': dataJson,
+    });
+    return (result ?? const []).map((e) => '$e').toList();
+  }
 }

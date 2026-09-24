@@ -9,6 +9,11 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ### Added
 
+- **REQ-013** — `skyprint-template` chạy trên Android + iOS (thêm target `android`, `iosArm64`, `iosSimulatorArm64`;
+  24 test PASS trên jvm/Android/iOS Simulator). XCFramework đổi thành `Skyprint` (core + template):
+  Swift dùng `TemplateEngine`; `Package.swift` sản phẩm `Skyprint`. Plugin Flutter nhúng
+  `skyprint-template-android`, thêm method `printOrderReceipt(templateJson, dataJson)`.
+  **Breaking so với bản nháp**: tên module Swift `SkyprintCore` → `Skyprint` (chưa release).
 - **REQ-012 (giai đoạn 2)** — iOS Swift: XCFramework tĩnh `SkyprintCore` (`assembleSkyprintCoreXCFramework`),
   `Package.swift` ở gốc repo (`binaryTarget(path: "ios/SkyprintCore.xcframework.zip")`, zip 4 MB commit trong
   repo, `scripts/release.sh` tự sinh). Đã verify: Swift package mới import `SkyprintCore`, `EscPosEncoder`

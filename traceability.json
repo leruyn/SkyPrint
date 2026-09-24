@@ -231,6 +231,23 @@
       "type": "CODE",
       "updated_at": "2026-09-24T03:08:30Z"
     },
+    "CODE-014": {
+      "code_ref": "kmp/skyprint-template/build.gradle.kts",
+      "created_at": "2026-09-24T03:18:21Z",
+      "depends_on": [
+        "DESIGN-013"
+      ],
+      "module": "shared",
+      "note": "Cùng đợt: Package.swift, ios/verify, scripts/release.sh, flutter/skyprint_flutter (SkyprintFlutterPlugin.kt, skyprint_flutter.dart, android/build.gradle).",
+      "owner": "",
+      "status": "done",
+      "title": "CODE: skyprint-template android+iOS targets, XCFramework Skyprint, plugin printOrderReceipt",
+      "traces_to": [
+        "TEST-UNIT-020"
+      ],
+      "type": "CODE",
+      "updated_at": "2026-09-24T03:18:22Z"
+    },
     "DESIGN-001": {
       "created_at": "2026-09-23T03:09:23Z",
       "depends_on": [
@@ -432,6 +449,24 @@
       "type": "DESIGN",
       "updated_at": "2026-09-24T02:42:07Z"
     },
+    "DESIGN-013": {
+      "created_at": "2026-09-24T03:18:21Z",
+      "depends_on": [
+        "DESIGN-009",
+        "DESIGN-012",
+        "REQ-013"
+      ],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-013/design.md",
+      "status": "in_progress",
+      "title": "DESIGN: template đa target, XCFramework tổng Skyprint, plugin nhúng template",
+      "traces_to": [
+        "TEST-SIT-013"
+      ],
+      "type": "DESIGN",
+      "updated_at": "2026-09-24T03:18:22Z"
+    },
     "REQ-001": {
       "created_at": "2026-09-23T03:05:55Z",
       "depends_on": [],
@@ -600,6 +635,20 @@
       "type": "REQ",
       "updated_at": "2026-09-24T02:42:07Z"
     },
+    "REQ-013": {
+      "created_at": "2026-09-24T03:18:21Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "spec_ref": "docs/features/REQ-013/req.md",
+      "status": "in_progress",
+      "title": "skyprint-template chạy trên Android + iOS (đa target + phân phối Maven/Flutter/Swift)",
+      "traces_to": [
+        "TEST-UAT-013"
+      ],
+      "type": "REQ",
+      "updated_at": "2026-09-24T03:18:22Z"
+    },
     "TEST-SIT-001": {
       "created_at": "2026-09-23T03:08:57Z",
       "depends_on": [],
@@ -731,6 +780,17 @@
       "traces_to": [],
       "type": "TEST-SIT",
       "updated_at": "2026-09-24T02:31:40Z"
+    },
+    "TEST-SIT-013": {
+      "created_at": "2026-09-24T03:18:22Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "TEST-SIT-013: app Flutter/KMP/Swift render mẫu qua kênh phân phối thật (git tag, GitHub Packages)",
+      "traces_to": [],
+      "type": "TEST-SIT",
+      "updated_at": "2026-09-24T03:18:22Z"
     },
     "TEST-UAT-001": {
       "created_at": "2026-09-23T03:08:57Z",
@@ -864,6 +924,17 @@
       "traces_to": [],
       "type": "TEST-UAT",
       "updated_at": "2026-09-24T02:31:40Z"
+    },
+    "TEST-UAT-013": {
+      "created_at": "2026-09-24T03:18:22Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pending",
+      "title": "TEST-UAT-013: in hoá đơn từ mẫu JSON trên máy in thật (Android USB, iOS LAN/BLE)",
+      "traces_to": [],
+      "type": "TEST-UAT",
+      "updated_at": "2026-09-24T03:18:22Z"
     },
     "TEST-UNIT-001": {
       "created_at": "2026-09-23T04:11:21Z",
@@ -1090,8 +1161,19 @@
       "traces_to": [],
       "type": "TEST-UNIT",
       "updated_at": "2026-09-24T03:08:30Z"
+    },
+    "TEST-UNIT-020": {
+      "created_at": "2026-09-24T03:18:21Z",
+      "depends_on": [],
+      "module": "shared",
+      "owner": "",
+      "status": "pass",
+      "title": "TEST-UNIT-020: skyprint-template 24 test PASS trên jvm + Android host + iOS Simulator; Swift ios/verify render mẫu",
+      "traces_to": [],
+      "type": "TEST-UNIT",
+      "updated_at": "2026-09-24T03:18:21Z"
     }
   },
   "project": "skyprint",
-  "updated_at": "2026-09-24T03:08:30Z"
+  "updated_at": "2026-09-24T03:18:22Z"
 }

@@ -12,6 +12,10 @@ import com.dcorp.skyprint.core.model.TextMode
 import com.dcorp.skyprint.core.model.TextStyle
 import com.dcorp.skyprint.core.model.TransportKind
 import com.dcorp.skyprint.core.usb.UsbPrinterTransport
+import com.dcorp.skyprint.template.RenderOptions
+import com.dcorp.skyprint.template.TemplateEngine
+import com.dcorp.skyprint.template.TemplateParser
+import com.dcorp.skyprint.template.TemplateValue
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -46,6 +50,7 @@ class SkyprintFlutterPlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "listUsbCandidates" -> result.success(listCandidates())
             "printUsbTest" -> printTest(call, result)
+            "printOrderReceipt" -> printOrderReceipt(call, result)
             else -> result.notImplemented()
         }
     }
@@ -82,6 +87,36 @@ class SkyprintFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 try {
                     connection.write(bytes)
                     result.success("In thành công tới $name.")
+                } finally {
+                    connection.close()
+                }
+            } catch (e: Exception) {
+                result.error("PRINT_FAILED", e.message ?: e::class.simpleName, null)
+            }
+        }
+    }
+
+    // REQ-013: mẫu JSON + dữ liệu JSON thô từ Dart -> render (skyprint-template) -> ESC/POS -> USB.
+    private fun printOrderReceipt(call: MethodCall, result: Result) {
+        val address = call.argument<String>("address")
+        val templateJson = call.argument<String>("templateJson")
+        val dataJson = call.argument<String>("dataJson")
+        if (address == null || templateJson == null || dataJson == null) {
+            result.error("MISSING_ARGUMENT", "Cần 'address', 'templateJson', 'dataJson'", null)
+            return
+        }
+        val name = call.argument<String>("name") ?: "USB printer"
+        val printer = PrinterInfo(id = "usb:$address", name = name, kind = TransportKind.USB, address = address)
+
+        scope.launch {
+            try {
+                val template = TemplateParser.parse(templateJson)
+                val rendered = TemplateEngine.render(template, TemplateValue.fromJson(dataJson), RenderOptions())
+                val bytes = EscPosEncoder.encode(rendered.document, TextMode.ASCII)
+                val connection = UsbPrinterTransport(appContext).open(printer)
+                try {
+                    connection.write(bytes)
+                    result.success(rendered.warnings.map { it.toString() })
                 } finally {
                     connection.close()
                 }

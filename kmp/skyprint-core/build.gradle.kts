@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
@@ -18,16 +17,8 @@ plugins {
 kotlin {
     jvm()
 
-    // REQ-012 giai đoạn 2: framework tĩnh + XCFramework cho app iOS Swift thuần
-    // (SPM/CocoaPods) -- `./gradlew :skyprint-core:assembleSkyprintCoreXCFramework`.
-    val skyprintXcf = XCFramework("SkyprintCore")
-    listOf(iosArm64(), iosSimulatorArm64()).forEach { target ->
-        target.binaries.framework {
-            baseName = "SkyprintCore"
-            isStatic = true
-            skyprintXcf.add(this)
-        }
-    }
+    iosArm64()
+    iosSimulatorArm64()
 
     android {
         namespace = "com.dcorp.skyprint.core"

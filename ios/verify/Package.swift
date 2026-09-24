@@ -6,9 +6,9 @@ let package = Package(
     name: "SwiftCheck",
     platforms: [.iOS(.v15)],
     products: [.library(name: "Check", targets: ["Check"])],
-    dependencies: [.package(name: "SkyprintCore", path: "../..")],
+    dependencies: [.package(name: "Skyprint", path: "../..")],
     targets: [
-        .target(name: "Check", dependencies: [.product(name: "SkyprintCore", package: "SkyprintCore")]),
+        .target(name: "Check", dependencies: [.product(name: "Skyprint", package: "Skyprint")]),
         .testTarget(name: "CheckTests", dependencies: ["Check"]),
     ]
 )

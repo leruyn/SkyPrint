@@ -46,16 +46,16 @@ val bytes: ByteArray = EscPosEncoder.encode(doc, TextMode.ASCII)
 
 ### iOS (Swift, Swift Package Manager)
 
-XCFramework tĩnh `SkyprintCore` (iosArm64 + Simulator arm64) nằm trong repo (`ios/`), khai qua SPM bằng URL git + tag:
+XCFramework tĩnh `Skyprint` = skyprint-core + skyprint-template (iosArm64 + Simulator arm64) nằm trong repo (`ios/`), khai qua SPM bằng URL git + tag:
 
 ```swift
 // Package.swift của app, hoặc Xcode: File > Add Package Dependencies...
 .package(url: "https://github.com/leruyn/SkyPrint.git", from: "0.1.1")
-// target: .product(name: "SkyprintCore", package: "SkyPrint")
+// target: .product(name: "Skyprint", package: "SkyPrint")
 ```
 
 ```swift
-import SkyprintCore
+import Skyprint
 
 let doc = ReceiptDocument(paper: PaperWidth.mm80, elements: [
     ElementText(text: "SKYPOS", style: TextStyle(align: Align.center, bold: true, width: 2, height: 2, inverse: false, underline: false)),
@@ -67,14 +67,14 @@ let bytes = EscPosEncoder.shared.encode(document: doc, mode: TextMode.ascii,
 
 Lưu ý: iOS chỉ có transport LAN + BLE (không USB/Bluetooth Classic). Kotlin/Native không giữ default
 argument, phải truyền đủ tham số như trên. App dùng BLE cần khai `NSBluetoothAlwaysUsageDescription`.
-Tối thiểu iOS 15. Repo private: máy dev/CI cần quyền clone.
+Render mẫu JSON: `TemplateParser.shared.parse(json:)` → `TemplateEngine.shared.render(template:data:options:)`
+(xem `ios/verify`). Tối thiểu iOS 15. Repo private: máy dev/CI cần quyền clone.
 
 ### Flutter
 
 Plugin Android-only nằm ở [flutter/skyprint_flutter](flutter/skyprint_flutter) (MethodChannel bọc
 `skyprint-core-android`, lấy từ Maven registry). Hiện mới có `listUsbCandidates`/`printUsbTest`
-(test tay); method in hoá đơn thật xem `docs/features/REQ-011` và
-`SkyPos-Flutter/docs/features/REQ-001`. Dùng trong app Flutter:
+(test tay) và `printOrderReceipt(templateJson, dataJson)` (mẫu JSON → in USB, REQ-013). Dùng trong app Flutter:
 
 ```yaml
 dependencies:

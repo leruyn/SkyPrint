@@ -1,14 +1,15 @@
 // swift-tools-version:5.9
-// SkyprintCore cho iOS Swift (REQ-012 giai đoạn 2). XCFramework nằm trong repo (ios/), sinh bởi scripts/release.sh.
+// Skyprint cho iOS Swift (REQ-012 gd2, REQ-013): framework tổng = skyprint-core + skyprint-template.
+// XCFramework nằm trong repo (ios/), sinh bởi scripts/release.sh.
 import PackageDescription
 
 let package = Package(
-    name: "SkyprintCore",
+    name: "Skyprint",
     platforms: [.iOS(.v15)],
     products: [
-        .library(name: "SkyprintCore", targets: ["SkyprintCore"]),
+        .library(name: "Skyprint", targets: ["Skyprint"]),
     ],
     targets: [
-        .binaryTarget(name: "SkyprintCore", path: "ios/SkyprintCore.xcframework.zip"),
+        .binaryTarget(name: "Skyprint", path: "ios/Skyprint.xcframework.zip"),
     ]
 )
