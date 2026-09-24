@@ -51,7 +51,7 @@ repositories {
 dependencies {
     // Version phải khớp thư mục repo/com/dcorp/skyprint/skyprint-core-android/<version>
     // -- scripts/release.sh tự ghi.
-    implementation 'com.dcorp.skyprint:skyprint-core-android:0.1.2'
-    implementation 'com.dcorp.skyprint:skyprint-template-android:0.1.2'
+    implementation 'com.dcorp.skyprint:skyprint-core-android:0.1.3'
+    implementation 'com.dcorp.skyprint:skyprint-template-android:0.1.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
 }

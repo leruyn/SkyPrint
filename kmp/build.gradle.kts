@@ -19,5 +19,5 @@ plugins {
 // "com.dcorp.skyprint:skyprint-core" với project(":skyprint-core") cục bộ.
 allprojects {
     group = "com.dcorp.skyprint"
-    version = "0.1.2"
+    version = "0.1.3"
 }
