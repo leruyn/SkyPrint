@@ -51,6 +51,7 @@ class SkyprintFlutterPlugin : FlutterPlugin, MethodCallHandler {
             "listUsbCandidates" -> result.success(listCandidates())
             "printUsbTest" -> printTest(call, result)
             "printOrderReceipt" -> printOrderReceipt(call, result)
+            "renderOrderReceipt" -> renderOrderReceipt(call, result)
             else -> result.notImplemented()
         }
     }
@@ -110,13 +111,11 @@ class SkyprintFlutterPlugin : FlutterPlugin, MethodCallHandler {
 
         scope.launch {
             try {
-                val template = TemplateParser.parse(templateJson)
-                val rendered = TemplateEngine.render(template, TemplateValue.fromJson(dataJson), RenderOptions())
-                val bytes = EscPosEncoder.encode(rendered.document, TextMode.ASCII)
+                val (bytes, warnings) = renderBytes(templateJson, dataJson)
                 val connection = UsbPrinterTransport(appContext).open(printer)
                 try {
                     connection.write(bytes)
-                    result.success(rendered.warnings.map { it.toString() })
+                    result.success(warnings)
                 } finally {
                     connection.close()
                 }
@@ -124,5 +123,27 @@ class SkyprintFlutterPlugin : FlutterPlugin, MethodCallHandler {
                 result.error("PRINT_FAILED", e.message ?: e::class.simpleName, null)
             }
         }
+    }
+
+    // Chỉ render (mẫu JSON + dữ liệu JSON -> byte ESC/POS), không ghi ra máy in -- cho app tự gửi bằng
+    // đường khác (vd thiết bị USB không phải Printer-class mà skyprint không mở được).
+    private fun renderOrderReceipt(call: MethodCall, result: Result) {
+        val templateJson = call.argument<String>("templateJson")
+        val dataJson = call.argument<String>("dataJson")
+        if (templateJson == null || dataJson == null) {
+            result.error("MISSING_ARGUMENT", "Cần 'templateJson', 'dataJson'", null)
+            return
+        }
+        try {
+            result.success(renderBytes(templateJson, dataJson).first)
+        } catch (e: Exception) {
+            result.error("RENDER_FAILED", e.message ?: e::class.simpleName, null)
+        }
+    }
+
+    private fun renderBytes(templateJson: String, dataJson: String): Pair<ByteArray, List<String>> {
+        val template = TemplateParser.parse(templateJson)
+        val rendered = TemplateEngine.render(template, TemplateValue.fromJson(dataJson), RenderOptions())
+        return EscPosEncoder.encode(rendered.document, TextMode.ASCII) to rendered.warnings.map { it.toString() }
     }
 }

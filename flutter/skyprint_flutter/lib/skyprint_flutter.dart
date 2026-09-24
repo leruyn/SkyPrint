@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/services.dart';
 
 /// Một máy in USB tìm thấy qua `UsbManager.getDeviceList()` (Android) --
@@ -50,5 +52,17 @@ class SkyprintFlutter {
       'dataJson': dataJson,
     });
     return (result ?? const []).map((e) => '$e').toList();
+  }
+
+  /// Chỉ render mẫu JSON + dữ liệu JSON thành byte ESC/POS (không in). Ném [PlatformException] nếu mẫu sai.
+  static Future<Uint8List> renderOrderReceipt({
+    required String templateJson,
+    required String dataJson,
+  }) async {
+    final bytes = await _channel.invokeMethod<Uint8List>('renderOrderReceipt', {
+      'templateJson': templateJson,
+      'dataJson': dataJson,
+    });
+    return bytes ?? Uint8List(0);
   }
 }

@@ -39,6 +39,8 @@ Nếu `settings.gradle` của app đặt `RepositoriesMode.FAIL_ON_PROJECT_REPOS
 
 - `SkyprintFlutter.listUsbCandidates()` — liệt kê máy in USB Printer-class.
 - `SkyprintFlutter.printUsbTest(candidate)` — in phiếu test.
+- `SkyprintFlutter.printOrderReceipt(printer:, templateJson:, dataJson:)` — mẫu JSON (skyprint-template) + dữ liệu JSON → in USB Printer-class. Trả về danh sách cảnh báo render.
+- `SkyprintFlutter.renderOrderReceipt(templateJson:, dataJson:)` — chỉ render ra byte ESC/POS (không in), để app tự gửi bằng đường khác.
 
 Method in hoá đơn thật: xem `docs/features/REQ-011`, SkyPos-Flutter `docs/features/REQ-001`.
 

@@ -7,6 +7,11 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ## [Unreleased]
 
+### Added
+
+- **REQ-013** — Plugin Flutter: method `renderOrderReceipt(templateJson, dataJson)` trả byte ESC/POS (không in),
+  cho app có đường ghi riêng (SkyPos-Flutter dùng cho thiết bị USB không phải Printer-class).
+
 ## [0.1.1] - 2026-09-24
 
 ### Added
