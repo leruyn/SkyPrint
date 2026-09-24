@@ -48,4 +48,4 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: cd kmp && ./gradlew :skyprint-core:publish :skyprint-template:publish
+        run: cd kmp && ./gradlew :skyprint-core:publishAllPublicationsToGitHubPackagesRepository :skyprint-template:publishAllPublicationsToGitHubPackagesRepository
