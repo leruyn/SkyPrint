@@ -11,7 +11,7 @@ package com.dcorp.skyprint.template
  */
 object SchemaValidator {
     private val PLACEHOLDER_PATH = Regex("""\{\{\s*([^|}\s]+)""")
-    private val ARRAY_INDEX = Regex("""\[\d+]""")
+    private val ARRAY_INDEX = Regex("""\[\d+\]""")
     private val TERM_PATH = Regex("""(?:^|&&|\|\|)\s*!?\s*([^\s!=<>&|]+)""")
 
     fun validate(template: Template, schema: TemplateSchema): List<TemplateIssue> {

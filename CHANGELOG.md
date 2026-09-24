@@ -7,6 +7,16 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-09-24
+
+### Fixed
+
+- **skyprint-template crash trên Android** (`PatternSyntaxException` ngay khi engine khởi tạo, app thoát lúc in):
+  regex `Interpolator` dùng `}}` không escape -- JVM chấp nhận nhưng regex ICU của Android thì không, nên test JVM/host
+  không bắt được. Escape `\}\}` (và `\]` ở `SchemaValidator`); thêm `RegexAndroidCompatTest` quét mọi `Regex` trong
+  commonMain để chặn tái diễn. Đã kiểm chứng trên thiết bị ACE3 (Android 11): bản cũ fail 1/8 pattern, bản mới 8/8 OK.
+  Ảnh hưởng mọi app dùng template trên Android (SkytabOffline, SkyPos-Flutter) từ 0.1.1.
+
 ## [0.1.2] - 2026-09-24
 
 ### Added

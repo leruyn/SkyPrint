@@ -6,7 +6,8 @@ package com.dcorp.skyprint.template
  * trong cùng chuỗi được nối lại.
  */
 object Interpolator {
-    private val PLACEHOLDER_REGEX = Regex("""\{\{\s*(.*?)\s*}}""")
+    // `}` PHẢI escape: regex Android (ICU) ném PatternSyntaxException với `}` trần, JVM thì chấp nhận -- test JVM không bắt được.
+    private val PLACEHOLDER_REGEX = Regex("""\{\{\s*(.*?)\s*\}\}""")
 
     fun interpolate(scope: Scope, template: String, money: MoneyFormat): String =
         PLACEHOLDER_REGEX.replace(template) { match -> resolveExpression(scope, match.groupValues[1], money) }
