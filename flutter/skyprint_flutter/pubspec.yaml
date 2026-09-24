@@ -3,7 +3,7 @@ description: >
   Cầu nối Dart -> skyprint-core (Kotlin) qua MethodChannel. Android-only cho
   tới nay (bọc skyprint-core, nằm trong repo skyprint/flutter/).
 publish_to: 'none'
-version: 0.1.0
+version: 0.1.1
 
 environment:
   sdk: ^3.9.2

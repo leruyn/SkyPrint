@@ -7,6 +7,8 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-24
+
 ### Added
 
 - **REQ-013** — `skyprint-template` chạy trên Android + iOS (thêm target `android`, `iosArm64`, `iosSimulatorArm64`;

@@ -12,7 +12,7 @@ dependencies:
     git:
       url: https://github.com/leruyn/SkyPrint.git
       path: flutter/skyprint_flutter
-      ref: v0.1.0        # tag release, KHÔNG dùng branch
+      ref: v0.1.1        # tag release, KHÔNG dùng branch
 ```
 
 Repo private: máy dev/CI cần quyền clone (SSH key hoặc `git config` credential/token read-only).
