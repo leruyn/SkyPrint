@@ -7,6 +7,8 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-09-24
+
 ### Added
 
 - **REQ-013** — Plugin Flutter: method `renderOrderReceipt(templateJson, dataJson)` trả byte ESC/POS (không in),
