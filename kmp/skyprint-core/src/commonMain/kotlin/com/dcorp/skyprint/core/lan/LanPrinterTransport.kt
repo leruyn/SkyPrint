@@ -11,18 +11,26 @@ import io.ktor.network.sockets.Socket
 import io.ktor.network.sockets.aSocket
 import io.ktor.network.sockets.openWriteChannel
 import io.ktor.utils.io.writeByteArray
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
+import com.dcorp.skyprint.core.transport.PrintResult
 
 /**
  * [defaultPort]: 9100 (JetDirect/RAW), cổng chuẩn de-facto cho máy in ESC/POS
  * qua LAN -- dùng khi [PrinterInfo.address] chỉ có host, không có `:port`.
+ *
+ * [dispatcher]: mọi thao tác mạng (mở/ghi/đóng socket) chạy trên dispatcher này, KHÔNG chạy trên luồng của người gọi.
+ * Người gọi thường là luồng chính (viewModelScope) và Android ném `NetworkOnMainThreadException` nếu mở socket ở đó
+ * (iOS không cấm nên lỗi chỉ lộ trên Android).
  */
 data class LanConfig(
     val defaultPort: Int = 9100,
     val connectTimeoutMs: Long = 3000,
     val writeTimeoutMs: Long = 10_000,
+    val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 )
 
 /**
@@ -33,7 +41,22 @@ data class LanConfig(
 class LanPrinterTransport(private val config: LanConfig = LanConfig()) : PrinterTransport {
     override val kind = TransportKind.LAN
 
-    override suspend fun open(printer: PrinterInfo): PrinterConnection {
+    /**
+     * Kiểm tra máy in có nhận kết nối TCP không: mở rồi đóng ngay, KHÔNG gửi byte nào nên không ra giấy.
+     * Dùng cho nút "Kiểm tra kết nối" ở màn hình cài đặt; không retry (người dùng đang chờ kết quả).
+     */
+    suspend fun probe(printer: PrinterInfo): PrintResult = try {
+        open(printer).close()
+        PrintResult.Success
+    } catch (e: PrinterException) {
+        PrintResult.Failure(e.code, e.message ?: "Không kết nối được máy in.")
+    }
+
+    override suspend fun open(printer: PrinterInfo): PrinterConnection = withContext(config.dispatcher) {
+        openOnCurrentDispatcher(printer)
+    }
+
+    private suspend fun openOnCurrentDispatcher(printer: PrinterInfo): PrinterConnection {
         val (host, port) = parseAddress(printer.address, config.defaultPort)
         val selectorManager = SelectorManager(Dispatchers.Default)
 
@@ -45,7 +68,7 @@ class LanPrinterTransport(private val config: LanConfig = LanConfig()) : Printer
             selectorManager.close()
             throw PrinterException(
                 PrinterErrorCode.CONNECT_TIMEOUT,
-                "Không kết nối được máy in LAN $host:$port trong ${config.connectTimeoutMs}ms.",
+                "Không kết nối được máy in LAN $host:$port trong ${config.connectTimeoutMs}ms -- kiểm tra IP và cùng mạng Wi-Fi.",
             )
         } catch (e: Exception) {
             selectorManager.close()
@@ -76,7 +99,7 @@ private class LanPrinterConnection(
     private val selectorManager: SelectorManager,
     private val config: LanConfig,
 ) : PrinterConnection {
-    override suspend fun write(bytes: ByteArray) {
+    override suspend fun write(bytes: ByteArray) = withContext(config.dispatcher) {
         try {
             withTimeout(config.writeTimeoutMs) {
                 val channel = socket.openWriteChannel(autoFlush = false)
@@ -90,7 +113,7 @@ private class LanPrinterConnection(
         }
     }
 
-    override suspend fun close() {
+    override suspend fun close() = withContext(config.dispatcher) {
         try {
             socket.close()
         } catch (ignored: Exception) {
