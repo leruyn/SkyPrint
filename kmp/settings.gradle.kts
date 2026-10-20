@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "skyprint"
 include(":skyprint-core")
 include(":skyprint-template")
+include(":skyprint-raster")
