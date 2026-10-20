@@ -6,9 +6,9 @@ package com.dcorp.skyprint.core.model
  * font cỡ nào; [dots] là bề rộng in được tính theo dot, dùng cho raster
  * (REQ-002) và QR.
  */
-enum class PaperWidth(val columns: Int, val dots: Int) {
-    MM58(columns = 32, dots = 384),
-    MM80(columns = 48, dots = 576),
+enum class PaperWidth(val columns: Int, val dots: Int, val contentDots: Int) {
+    MM58(columns = 32, dots = 384, contentDots = 360),
+    MM80(columns = 48, dots = 576, contentDots = 512),
 }
 
 enum class Align { LEFT, CENTER, RIGHT }
