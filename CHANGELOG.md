@@ -7,6 +7,27 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-20
+
+Gộp code in của SkytabOffline vào SDK (docs: `SkyPrint-SDK-ConsolidationPlan.md` bên SkytabOffline). Đã kiểm chứng:
+bill ESC/POS khớp từng byte với bản cũ trong app (golden), và in thật trên máy LAN 80mm.
+
+### Added
+
+- **`skyprint-raster`** (module mới) — dựng bill thành ảnh điểm (Floyd–Steinberg + lệnh `GS v 0`, băng 256 dòng) để in
+  chữ tiếng Việt có dấu; bộ vẽ Java2D (JVM), Canvas (Android), CoreGraphics (iOS).
+- **`skyprint-registry`** (module mới) — danh sách máy in mạng: thêm/sửa/xoá có kiểm tra, "tối đa 1 máy mặc định mỗi loại",
+  chọn máy khi in; lưu JSON (`JsonPrinterProfileStore`), `LanPrinterAddress`.
+- **`skyprint-core`**: `LanPrinterTransport.probe()` kiểm tra kết nối mà không ra giấy; `LanConfig.dispatcher` để mọi thao
+  tác socket chạy ngoài luồng chính (Android ném `NetworkOnMainThreadException` nếu mở socket ở luồng chính).
+- `PaperWidth.contentDots` (360 cho 58mm, 512 cho 80mm): bề rộng ảnh an toàn khi in raster — nhiều máy 80mm chỉ in được 512
+  điểm, gửi 576 sẽ mất mảng bên phải.
+
+### Notes
+
+- Lưu ý khi in bill qua `PrintQueue`: mặc định retry 2 lần; in bill nên dùng `RetryPolicy(maxRetries = 0)` để tránh ra hai bill.
+- Plugin Flutter giữ nguyên `0.1.3` (chưa nhúng raster/registry).
+
 ## [0.1.3] - 2026-09-24
 
 ### Fixed
