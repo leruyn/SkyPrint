@@ -6,7 +6,7 @@ plugins {
     `maven-publish`
 }
 
-// DEPRECATED từ 0.3.0: toàn bộ code raster (ReceiptDocument, ReceiptRasterizer, MonoConverter, EscPosRaster, PrintImage...) đã
+// DEPRECATED từ 0.3.1: toàn bộ code raster (ReceiptDocument, ReceiptRasterizer, MonoConverter, EscPosRaster, PrintImage...) đã
 // gộp vào skyprint-core, GIỮ NGUYÊN package `com.dcorp.skyprint.raster`. Module này chỉ còn là artifact rỗng kéo theo
 // skyprint-core (api) để dự án đang khai `skyprint-raster` không vỡ build; dự án mới chỉ cần `skyprint-core`.
 // Sẽ gỡ khi mọi dự án dùng đã bỏ dependency này (xem CHANGELOG).
