@@ -7,6 +7,29 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ## [Unreleased]
 
+## [0.3.0] - chưa phát hành
+
+Gộp `skyprint-raster` vào `skyprint-core`: dự án dùng chỉ cần một dependency.
+
+### Added
+
+- **`PrintImage.toGray(argb, width, height, targetWidth, tone)`** và **`PrintTone`** (commonMain, package
+  `com.dcorp.skyprint.raster`): ảnh dựng sẵn từ app (Compose/Canvas/view chụp) → `GrayBitmap` đúng bề rộng máy in. Ảnh đã đúng
+  `targetWidth` giữ nguyên từng điểm (không lấy mẫu lại); khác bề rộng thì co bằng trung bình theo vùng. `PrintTone.Thermal`
+  (mặc định) = contrast 1,18 + ngưỡng 152, khớp `PrinterHelper` của skytab-android. Nên dựng ảnh ngay ở `PaperWidth.contentDots`
+  thay vì chụp màn hình điện thoại rồi co — chữ mờ, vỡ dấu tiếng Việt.
+
+### Changed
+
+- Toàn bộ code của `skyprint-raster` (`ReceiptDocument`/`ReceiptBlock`, `ReceiptRasterizer`, `ReceiptLayoutEngine`,
+  `MonoConverter`, `EscPosRaster`, bộ vẽ Java2D/Canvas/CoreGraphics) chuyển vào `skyprint-core`, **giữ nguyên package
+  `com.dcorp.skyprint.raster`** nên import không đổi. Lịch sử git giữ qua `git mv`.
+
+### Deprecated
+
+- **`skyprint-raster`** chỉ còn là artifact rỗng kéo theo `skyprint-core` (`api`) để build cũ không vỡ. Dự án mới chỉ cần
+  `com.dcorp.skyprint:skyprint-core`; bỏ dòng `skyprint-raster` khi tiện. Sẽ gỡ module ở bản sau khi không còn dự án dùng.
+
 ## [0.2.0] - 2026-10-20
 
 Gộp code in của SkytabOffline vào SDK (docs: `SkyPrint-SDK-ConsolidationPlan.md` bên SkytabOffline). Đã kiểm chứng:

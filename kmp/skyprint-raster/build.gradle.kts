@@ -6,10 +6,10 @@ plugins {
     `maven-publish`
 }
 
-// P1 của docs/SkyPrint-SDK-ConsolidationPlan.md (SkytabOffline): bộ dàn trang + vẽ bill theo ĐIỂM ẢNH (font tỉ lệ, dấu tiếng Việt)
-// -> ảnh xám -> Floyd–Steinberg -> lệnh GS v 0. Chuyển nguyên từ module `sky-printer` của SkytabOffline; chủ ý KHÔNG phụ thuộc
-// skyprint-core ở pha này (tên ReceiptDocument/MonoBitmap trùng nhưng khác kiểu) -- việc hợp nhất để pha sau, sau khi so được golden.
-// Khác skyprint-core ở chỗ: chỉ có 3 backend đồ hoạ (Java2D / Canvas / CoreGraphics), không có transport hay ktor/kable.
+// DEPRECATED từ 0.3.0: toàn bộ code raster (ReceiptDocument, ReceiptRasterizer, MonoConverter, EscPosRaster, PrintImage...) đã
+// gộp vào skyprint-core, GIỮ NGUYÊN package `com.dcorp.skyprint.raster`. Module này chỉ còn là artifact rỗng kéo theo
+// skyprint-core (api) để dự án đang khai `skyprint-raster` không vỡ build; dự án mới chỉ cần `skyprint-core`.
+// Sẽ gỡ khi mọi dự án dùng đã bỏ dependency này (xem CHANGELOG).
 kotlin {
     jvm()
 
@@ -24,13 +24,11 @@ kotlin {
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
-
-        withHostTest {}
     }
 
     sourceSets {
-        commonTest.dependencies {
-            implementation(kotlin("test"))
+        commonMain.dependencies {
+            api(project(":skyprint-core"))
         }
     }
 }
