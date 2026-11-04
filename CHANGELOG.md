@@ -7,9 +7,13 @@ khi nâng version — xem chính sách tương thích ngược ở
 
 ## [Unreleased]
 
-## [0.3.0] - chưa phát hành
+## [0.3.1] - chưa phát hành
 
 Gộp `skyprint-raster` vào `skyprint-core`: dự án dùng chỉ cần một dependency.
+
+> **Không có 0.3.0 dùng được.** Lần publish `v0.3.0` hỏng giữa chừng (module `skyprint-raster` rỗng không có klib → job đỏ)
+> sau khi một phần artifact `0.3.0` đã lên GitHub Packages; Maven của GitHub Packages không cho ghi đè nên phát hành lại
+> thành `0.3.1`. Đừng khai `0.3.0`.
 
 ### Added
 
@@ -27,7 +31,7 @@ Gộp `skyprint-raster` vào `skyprint-core`: dự án dùng chỉ cần một d
 
 ### Deprecated
 
-- **`skyprint-raster`** chỉ còn là artifact rỗng kéo theo `skyprint-core` (`api`) để build cũ không vỡ. Dự án mới chỉ cần
+- **`skyprint-raster`** chỉ còn là artifact (một object đánh dấu deprecated) kéo theo `skyprint-core` (`api`) để build cũ không vỡ. Dự án mới chỉ cần
   `com.dcorp.skyprint:skyprint-core`; bỏ dòng `skyprint-raster` khi tiện. Sẽ gỡ module ở bản sau khi không còn dự án dùng.
 
 ## [0.2.0] - 2026-10-20

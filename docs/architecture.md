@@ -47,7 +47,7 @@ skyprint/
                                 #   com.android.kotlin.multiplatform.library (AGP >=8.10, ghim 8.13.1),
                                 #   không dùng com.android.library cổ (AGP 9+ cấm kết hợp với KMP)
     skyprint-template/          # commonMain: template engine JSON + placeholder (REQ-009)
-    skyprint-raster/            # DEPRECATED từ 0.3.0: artifact rỗng, code đã gộp vào skyprint-core (package com.dcorp.skyprint.raster)
+    skyprint-raster/            # DEPRECATED từ 0.3.1: artifact rỗng, code đã gộp vào skyprint-core (package com.dcorp.skyprint.raster)
     skyprint-lan/               # commonMain, ktor-network sockets (Android + iOS)
     skyprint-ble/               # commonMain, Kable (Android + iOS)
     skyprint-android/           # androidMain: USB + Bluetooth Classic + discovery Android
